@@ -12,5 +12,7 @@
   "forecastDescription4":"Die Zukunftsprognose ist abhängig von der aktuellen Situation und den politischen Aktionen in jedem Land. Tägliche Auswirkungen können die Trendrichtung beeinflussen. Bitte verfolgen Sie die Veränderungen periodisch, um informiert zu werden!",
   "about": "Über das Project",
   "feedback": "Falls Sie eine positive oder negative Antwort hinterlassen möchten, bitte wenden Sie sich an ",
-  "here": "diese Adresse"
+  "here": "diese Adresse",
+  "forecastEndDay": "Erwartetes Datum ohne neue täglich Infizierte",
+  "alreadyReached": "schon erreicht"
 }

@@ -6,6 +6,14 @@
               :selected="country.Country == 'Germany'" >{{ country.Country }}</option>
     </select>
 
+    <div v-if="showEndDate" class="table-responsive withOffsetTop">
+      <table class="table table-striped table-sm">
+        <tr>
+          <td class="leftAlign goodNewsBg">{{ $t('forecastEndDay') }}</td>
+          <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b></td>
+        </tr>
+      </table>
+    </div>
 
     <div class="Chart">
         <h2>{{ $t('infectedTotal') }}</h2>
@@ -79,6 +87,8 @@
       loaded: false,
       loading: false,
       showError: false,
+      showEndDate: false,
+      endDate: '',
       errorMessage: '',
       labels: [],
       forecastLabels: [],
@@ -86,6 +96,7 @@
       deaths: [],
       newConfirmed: [],
       newDeaths: [],
+      forecastData: null,
       forecastNewConfirmed: [],
       forecastChartData: null,
       labelConfirmed: 'Infected (total)',
@@ -120,8 +131,11 @@
             this.labels = response.data.map(entry => this.dateToDay(entry.Date));
             this.newConfirmed = this.calculateDayDelta(this.confirmed);
             this.newDeaths = this.calculateDayDelta(this.deaths);
-            this.forecastNewConfirmed = createForecastData(this.newConfirmed, 60).datasets[0].data;
-            this.forecastLabels = this.generateDateLabels(this.forecastNewConfirmed.length);
+            this.forecastData = createForecastData(this.newConfirmed, 60);
+            this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
+            this.forecastLabels = this.forecastData.labels;
+            this.showEndDate = this.forecastData.showEndDate;
+            this.endDate = this.forecastData.endDate;
             this.loaded = true;
             this.loading = false;
           })

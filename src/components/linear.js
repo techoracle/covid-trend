@@ -95,21 +95,27 @@ function findIntervalBorderIndex(point, intervals, useRightBorder) {
 }
 
 function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionValuesY) {
-  const results = [];
+  let result = {};
+  const arrayY = [];
   const linearReg = linearRegression(functionValuesX, functionValuesY);
   const slope = linearReg.slope;
   const intercept = linearReg.intercept;
   console.log('slope = ' + slope + '; intercept = ' + intercept);
-  let riched0 = false;
-  pointsToEvaluate.forEach(function (point) {
-      let result = Math.round(slope * point + intercept);
-      result = result >= 0 ? result : 0;
-      if (!riched0) results.push(result);
-      if (result === 0) riched0 = true;
+  let reached0 = false;
+  pointsToEvaluate.forEach(function (pointX) {
+      let pointY = Math.round(slope * pointX + intercept);
+      pointY = pointY >= 0 ? pointY : 0;
+      if (!reached0) arrayY.push(pointY);
+      if (pointY === 0) reached0 = true;
     }
   );
 
-  return results;
+  result['arrayY'] = arrayY;
+  result['slope'] = slope;
+  result['intercept'] = intercept;
+  result['reached0'] = reached0;
+
+  return result;
 }
 
 

@@ -12,5 +12,7 @@
   "forecastDescription4":"The future forecast is depending on the current situation and the political actions in each country. Daily impacts can influence the trend direction. Please track the changes periodically in case to be informed!",
   "about": "About project",
   "feedback": "In case of new idea, review, positive or negative response please provide your feedback",
-  "here": "here"
+  "here": "here",
+  "forecastEndDay": "Expected date without new daily infected",
+  "alreadyReached": "already reached"
 }

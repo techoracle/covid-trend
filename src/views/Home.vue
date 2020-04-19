@@ -103,6 +103,14 @@
     margin-top: 0px;
   }
 
+  .goodNewsBg {
+    background: #aff;
+  }
+
+  .withOffsetTop {
+    margin-top: 4px;
+  }
+
   a {
     text-decoration: underline;
   }
