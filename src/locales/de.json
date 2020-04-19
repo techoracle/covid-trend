@@ -1,0 +1,16 @@
+{
+  "title": "COVID-19 Statistik und Prognose",
+  "titleDescription": "(basiert auf Daten von Johns Hopkins Universität und analysiert mit Trend-Methode der linearen Regression)",
+  "infectedTotal": "Infizierte (gesamt)",
+  "infectedDaily":"Infizierte (täglich)",
+  "deathsTotal":"Todesfälle (gesamt)",
+  "deathsDaily":"Todesfälle (täglich)",
+  "forecastDailyInfected":"Prognose: Trend der täglich infizierten Personen",
+  "forecastDescription1":"Die Berechnung der Prognose basiert auf den Daten der täglich infizierten Personen, die in den letzten 15 Tagen gesammelt und an die Johns Hopkins University übermittelt wurden. ",
+  "forecastDescription2":"Zur Analyse der Daten wurde die Methode der linearen Regression verwendet. Die Ergebnisse sind in der Grafik 'Prognose: Trend der täglich infizierten Personen' dargestellt. ",
+  "forecastDescription3":"Die Richtung der Prognose veranschaulicht in Zahlen und unter Berücksichtigung der statistischen Methode die am besten übereinstimmende Linie der gesammelten Daten. ",
+  "forecastDescription4":"Die Zukunftsprognose ist abhängig von der aktuellen Situation und den politischen Aktionen in jedem Land. Tägliche Auswirkungen können die Trendrichtung beeinflussen. Bitte verfolgen Sie die Veränderungen periodisch, um informiert zu werden!",
+  "about": "Über das Project",
+  "feedback": "Falls Sie eine positive oder negative Antwort hinterlassen möchten, bitte wenden Sie sich an ",
+  "here": "diese Adresse"
+}

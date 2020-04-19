@@ -1,0 +1,16 @@
+{
+  "title": "COVID-19 statistics and forecast",
+  "titleDescription": "(based on data of Johns Hopkins University and 15-days linear regression trend)",
+  "infectedTotal": "Infected (total)",
+  "infectedDaily":"Infected (daily)",
+  "deathsTotal":"Deaths (total)",
+  "deathsDaily":"Deaths (daily)",
+  "forecastDailyInfected":"Forecast: trend of daily infected people",
+  "forecastDescription1":"The calculation of the forecast is based on the data of daily infected people collected and submitted in the last 15 days to the Johns Hopkins University. ",
+  "forecastDescription2":"The method of linear regression was used to analyze the data. The results are represented in the diagram 'Forecast: trend of daily infected people'. ",
+  "forecastDescription3":"The direction of the forecast illustrates in terms of figures and under consideration of the statistical method the best matched line of the collected data. ",
+  "forecastDescription4":"The future forecast is depending on the current situation and the political actions in each country. Daily impacts can influence the trend direction. Please track the changes periodically in case to be informed!",
+  "about": "About project",
+  "feedback": "In case of new idea, review, positive or negative response please provide your feedback",
+  "here": "here"
+}
