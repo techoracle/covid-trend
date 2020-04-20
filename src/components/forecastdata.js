@@ -15,12 +15,13 @@ function createForecastData(points, amount) {
   const slope = calculatedLinearRegression.slope;
   const reached0 = calculatedLinearRegression.reached0;
   const labels = generateDateLabels(arrayForecastCalculated.length);
-  const calculatedEndDate = getEndDate(reached0, slope, labels);
+  const calculatedEndDate = getEndDate(reached0, slope, labels, arrayY);
 
   result['labels'] = labels;
   result['arrayForecastCalculated'] = arrayForecastCalculated;
   result['showEndDate'] = calculatedEndDate.showEndDate;
   result['endDate'] = calculatedEndDate.endDate;
+  result['isEndDateInPast'] = calculatedEndDate.isEndDateInPast;
 
   return result;
 }
@@ -41,15 +42,19 @@ function generateDateLabels(amount) {
   return result;
 }
 
-function getEndDate(reached0, slope, labels) {
+function getEndDate(reached0, slope, labels, arrayY) {
   let result = {};
 
   let showEndDate = false;
+  let isEndDateInPast = false;
   let endDate = '';
+  const lastY = arrayY[arrayY.length - 1];
+  console.log("lastY = " + lastY);
 
-  if (slope === 0) {
+  if (slope === 0 || lastY === 0) {
     showEndDate = true;
-    endDate = $t('alreadyReached');
+    isEndDateInPast = true;
+    endDate = '';
   } else if (reached0) {
     showEndDate = true;
     endDate = labels[labels.length - 1];
@@ -57,6 +62,7 @@ function getEndDate(reached0, slope, labels) {
 
   result['showEndDate'] = showEndDate;
   result['endDate'] = endDate;
+  result['isEndDateInPast'] = isEndDateInPast;
   return result;
 
 }

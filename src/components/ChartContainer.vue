@@ -10,7 +10,7 @@
       <table class="table table-striped table-sm">
         <tr>
           <td class="leftAlign goodNewsBg">{{ $t('forecastEndDay') }}</td>
-          <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b></td>
+          <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b><b v-if="isEndDateInPast">{{ $t('alreadyReached') }} </b></td>
         </tr>
       </table>
     </div>
@@ -88,6 +88,7 @@
       loading: false,
       showError: false,
       showEndDate: false,
+      isEndDateInPast: false,
       endDate: '',
       errorMessage: '',
       labels: [],
@@ -135,6 +136,7 @@
             this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
             this.forecastLabels = this.forecastData.labels;
             this.showEndDate = this.forecastData.showEndDate;
+            this.isEndDateInPast = this.forecastData.isEndDateInPast;
             this.endDate = this.forecastData.endDate;
             this.loaded = true;
             this.loading = false;
