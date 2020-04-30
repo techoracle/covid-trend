@@ -9,29 +9,33 @@ export default evaluateVerhulst;
  * @param {Array} functionValuesDN            set of daily grow of population values based on smoothing data
  * @param {Array} realDN                      set of daily grow of population values based on statistic data
  * @param {Number} wholePopulation            amount of whole population
- * @returns {Array}                           interpolating Verhulst logistic curve
+ * @returns {Object}                          interpolating Verhulst logistic curve
  */
 function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopulation) {
   let result = {};
 
-  const analyzedExtrem1 = extrem(functionValuesDN);
-  let max1 = analyzedExtrem1.max;
-  let maxX1 = analyzedExtrem1.index;
-  let startIndex = analyzedExtrem1.startIndex;
+  // analyze the smoothing data
+  const analyzedExtremSmoothing = extrem(functionValuesDN);
+  let maxSmoothing = analyzedExtremSmoothing.max;
+  let maxXSmoothing = analyzedExtremSmoothing.index;
+  let startIndex = analyzedExtremSmoothing.startIndex;
 
+  // analyze real data from statistics
   const analyzedExtremReal = extrem(realDN);
-  let max2 = analyzedExtremReal.max;
-  let maxX2 = analyzedExtremReal.index;
+  let maxReal = analyzedExtremReal.max;
+  let maxXReal = analyzedExtremReal.index;
 
-  let max = (max2 > max1)? max2 : max1; //Math.max(max1, max2);
-  let maxX = (max2 > max1)? maxX2 : maxX1; //Math.max(maxX1, maxX2);
+  let max = (maxReal > maxSmoothing)? maxReal : maxSmoothing;
+  let maxX = (maxReal > maxSmoothing)? maxXReal : maxXSmoothing;
   console.log('evaluateVerhulst() max = ' + max + '; maxX = ' + maxX);
   console.log('evaluateVerhulst() N_in_max = ' + functionValuesN[maxX] );
 
+  // very important to know: is maximum of daily infected already reached?
+  const isMax = ( max !== null );
 
-  let isMax = ( max !== null );
   // estimated maximum infected people
   let M;
+
   const r0 = getR0(startIndex, isMax, maxX, functionValuesN);
   const lastX = functionValuesN.length - 1;
   const lastN = functionValuesN[functionValuesN.length - 1];
@@ -44,6 +48,7 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
       console.log('evaluateVerhulst() M = ' + M + ', lastN = ' + lastN);
     }
   } else if (wholePopulation !== null) {
+    // estimated value (done through many european countries): 0.25% of population will be in infected statistics
     M = Math.round(wholePopulation * 0.0025);
   } else {
     const distanceToStart = lastX - startIndex;
@@ -54,18 +59,27 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   }
   console.log('evaluateVerhulst() M = ' + M);
 
-  const daysForLastR = 7;
-  const startXforR = (lastX > daysForLastR) ? lastX - daysForLastR : 0;
+  // Last days in statistics using in calculating the last growth parameter R
+  const DAYS_FOR_LAST_R = 7;
+  const startXforR = (lastX > DAYS_FOR_LAST_R) ? lastX - DAYS_FOR_LAST_R : 0;
+  // Growth parameter R for last days in statistics
   const rLast = getAverageR(startXforR, lastX, M, functionValuesN);
   console.log('evaluateVerhulst() rLast = ' + rLast);
 
+  // array to store calculated daily infected people for each day
   let arrayForecastDN = [];
+  // array to store calculated total infected people for each day
   let arrayForecastN = [];
+  // total infected people for each day
   let N = functionValuesN[functionValuesN.length - 1];
+  // daily infected people for each day
   let dN = functionValuesDN[functionValuesDN.length - 1];
+  // counter for amount of forecast days
   let amount = 0;
+  // if a day of "zero new daily infected" will be not found => the parameter will limit the forecast days
   const MAX_FORECAST_PERIOD_DAYS = 120;
 
+  // let's calculate Verhulst forecast
   console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
   while (dN > 0 && amount < MAX_FORECAST_PERIOD_DAYS) {
     dN = getDailyDelta(rLast, N, M);
@@ -76,10 +90,13 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
     console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
   }
 
+  // is a day of "zero new daily infected" found?
   const reached0 = (dN === 0 || dN < 0);
+  // whole data: statistics + forecast
   let arrayN = functionValuesN.slice().concat(arrayForecastN);
   let arrayDN = functionValuesDN.slice().concat(arrayForecastDN);
 
+  // put results together into object
   result['arrayForecastDN'] = arrayForecastDN;
   result['arrayForecastN'] = arrayForecastN;
   result['arrayN'] = arrayN;
