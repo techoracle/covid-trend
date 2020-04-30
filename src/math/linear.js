@@ -1,5 +1,3 @@
-'use strict';
-
 
 export default evaluateLinearRegression;
 
@@ -33,6 +31,9 @@ function evaluateLinear(pointsToEvaluate, functionValuesX, functionValuesY) {
  *
  * Evaluates y-value at given x point for line that passes
  * through the points (x0,y0) and (y1,y1)
+ *       (y1 - y0)       (y1 - y0)
+ *   y = --------- * x - --------- * x0 + y0
+ *       (x1 - x0)       (x1 - x0)
  *
  * @param x
  * @param x0
@@ -100,8 +101,9 @@ function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionVal
   const linearReg = linearRegression(functionValuesX, functionValuesY);
   const slope = linearReg.slope;
   const intercept = linearReg.intercept;
-  console.log('slope = ' + slope + '; intercept = ' + intercept);
+  //console.log('slope = ' + slope + '; intercept = ' + intercept);
   let reached0 = false;
+  pointsToEvaluate = makeItArrayIfItsNot(pointsToEvaluate);
   pointsToEvaluate.forEach(function (pointX) {
       let pointY = Math.round(slope * pointX + intercept);
       pointY = pointY >= 0 ? pointY : 0;
@@ -128,14 +130,15 @@ function linearRegression(arrayX, arrayY) {
   let sum_xy = 0;
   let sum_xx = 0;
   let sum_yy = 0;
+  let validatedArrayY = validateArrayY(arrayY);
 
   for (let i = 0; i < arrayY.length; i++) {
 
     sum_x += arrayX[i];
-    sum_y += arrayY[i];
-    sum_xy += (arrayX[i] * arrayY[i]);
+    sum_y += validatedArrayY[i];
+    sum_xy += (arrayX[i] * validatedArrayY[i]);
     sum_xx += (arrayX[i] * arrayX[i]);
-    sum_yy += (arrayY[i] * arrayY[i]);
+    sum_yy += (validatedArrayY[i] * validatedArrayY[i]);
   }
 
   lr['slope'] = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
@@ -143,4 +146,20 @@ function linearRegression(arrayX, arrayY) {
   lr['r2'] = Math.pow((n * sum_xy - sum_x * sum_y) / Math.sqrt((n * sum_xx - sum_x * sum_x) * (n * sum_yy - sum_y * sum_y)), 2);
 
   return lr;
+}
+
+function validateArrayY(arrayY) {
+  let result = [];
+  arrayY.forEach(function(y, index) {
+    if (isNaN(y)) {
+      if (index > 0) {
+        result.push(arrayY[index - 1]);
+      } else if (index < arrayY.length) {
+        result.push(arrayY[index + 1]);
+      }
+    } else {
+      result.push(y);
+    }
+  });
+  return result;
 }

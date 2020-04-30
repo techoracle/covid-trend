@@ -1,7 +1,7 @@
 {
   "name": "Covid-Trend",
-  "version": "1.0.0",
-  "description": "COVID-19 statistics and forecast (based on data of Johns Hopkins University and linear regression trend)",
+  "version": "2.0.0",
+  "description": "COVID-19 statistics and forecast (based on data of Johns Hopkins University and and Verhulst population growth model)",
   "author": "Sergey Zaburunov <sergey.zaburunov@gmail.com>",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
     "core-js": "^3.4.4",
+    "mathjs": "^6.6.4",
     "moment": "^2.24.0",
     "vue": "2.1.10",
     "vue-chartjs": "^2.3.7",

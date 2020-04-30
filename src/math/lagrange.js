@@ -1,0 +1,116 @@
+/**
+ * At least two points are needed to interpolate something.
+ * @class Lagrange polynomial interpolation.
+ * The computed interpolation polynomial will be referred to as L(x).
+ * @example
+ * var l = new Lagrange(0, 0, 1, 1);
+ * var index = l.addPoint(0.5, 0.8);
+ * console.log(l.valueOf(0.1));
+ *
+ * l.changePoint(index, 0.5, 0.1);
+ * console.log(l.valueOf(0.1));
+ */
+
+export default evaluateLagrange;
+
+/**
+ * Evaluates interpolating Lagrange at the set of numbers
+ * or at a single number for the function y=f(x)
+ *
+ * @param {Number|Array} pointsToEvaluate     number or set of numbers
+ *                                            for which polynomial is calculated
+ * @param {Array} functionValuesX             set of distinct x values
+ * @param {Array} functionValuesY             set of distinct y=f(x) values
+ * @returns {Array}
+ */
+function evaluateLagrange(pointsToEvaluate, functionValuesX, functionValuesY) {
+  let result = {};
+
+  let lagrange = new Lagrange(functionValuesX[0], functionValuesY[0], functionValuesX[1], functionValuesY[1]);
+  for (let i = 2; i < functionValuesX.length; i++) {
+    lagrange.addPoint(functionValuesX[i], functionValuesY[i]);
+  }
+
+  // evaluate the interpolating polynomial for each point
+  let reached0 = false;
+  const arrayY = [];
+  pointsToEvaluate.forEach(function (point) {
+    let pointY = Math.round(lagrange.valueOf(point));
+    pointY = pointY >= 0 ? pointY : 0;
+    if (!reached0) arrayY.push(pointY);
+    if (pointY === 0) reached0 = true;
+  });
+
+  result['arrayY'] = arrayY;
+  result['reached0'] = reached0;
+
+  return result;
+}
+
+
+let Lagrange = function(x1, y1, x2, y2) {
+
+  this.xs = [x1, x2];
+  this.ys = [y1, y2];
+  this.ws = [];
+  this._updateWeights();
+}
+
+/**
+ * Adds a new point to the polynomial. L(x) = y
+ * @return {Number} The index of the added point. Used for changing the point. See changePoint.
+ */
+Lagrange.prototype.addPoint = function(x, y) {
+  this.xs.push(x);
+  this.ys.push(y);
+  this._updateWeights();
+  return this.xs.length-1;
+}
+
+/**
+ * Changes a previously added point.
+ */
+Lagrange.prototype.changePoint = function(index, x, y) {
+  this.xs[index] = x;
+  this.ys[index] = y;
+  this._updateWeights();
+}
+
+/**
+ * Recalculate barycentric weights.
+ */
+Lagrange.prototype._updateWeights = function() {
+  var k = this.xs.length;
+  var w;
+
+  for (var j = 0; j < k; ++j) {
+    w = 1;
+    for (var i = 0; i < k; ++i) {
+      if (i != j) {
+        w *= this.xs[j] - this.xs[i];
+      }
+    }
+    this.ws[j] = 1/w;
+  }
+}
+
+/**
+ * Calculate L(x)
+ */
+Lagrange.prototype.valueOf = function(x) {
+  var a = 0;
+  var b = 0;
+  var c = 0;
+
+  for (var j = 0; j < this.xs.length; ++j) {
+    if (x != this.xs[j]) {
+      a = this.ws[j] / (x - this.xs[j]);
+      b += a * this.ys[j];
+      c += a;
+    } else {
+      return this.ys[j];
+    }
+  }
+
+  return b / c;
+}

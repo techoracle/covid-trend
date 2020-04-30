@@ -52,6 +52,8 @@
           :data-label="labelNewDeaths"
         />
       </div>
+
+    <!--
       <div class="Chart">
         <h2>{{ $t('forecastDailyInfected') }}</h2>
         <line-chart
@@ -61,6 +63,10 @@
           :data-label="labelForecast"
         />
       </div>
+      -->
+
+    <br>
+    <h2>{{ $t('forecast') }}</h2>
     <p>
       {{ $t('forecastDescription1') }}
       {{ $t('forecastDescription2') }}
@@ -68,23 +74,59 @@
       {{ $t('forecastDescription4') }}
     </p>
 
+    <div class="Chart">
+      <h2>{{ $t('forecastTotalInfected') }}</h2>
+      <two-lines-chart
+        v-if="loadedForecast"
+        :chart-labels="labelsVerhulst"
+        :chart-data-first="confirmed"
+        :data-label-first="labelConfirmed"
+        :chart-data-second="forecastVerhulstConfirmed"
+        :data-label-second="labelForecast"
+      />
+    </div>
+
+    <div class="Chart">
+      <h2>{{ $t('forecastDailyInfected') }}</h2>
+      <two-lines-chart
+        v-if="loadedForecast"
+        :chart-labels="labelsVerhulst"
+        :chart-data-first="newConfirmed"
+        :data-label-first="labelNewConfirmed"
+        :chart-data-second="forecastVerhulstNewConfirmed"
+        :data-label-second="labelForecast"
+      />
+    </div>
+
+    <br>
+    <div class="leftAlign">
+      <h4>{{ $t('links') }}</h4>
+      <ul>
+        <li><small><a href="https://github.com/CSSEGISandData/COVID-19">{{ $t('linkJohnsHopkinsUniversity') }}</a></small></li>
+        <li><small><a href="https://en.wikipedia.org/wiki/Logistic_function">{{ $t('linkVerhulst') }}</a></small></li>
+      </ul>
+    </div>
+
 
   </div>
 </template>
 
 <script>
   import LineChart from './LineChart.vue';
+  import TwoLinesChart from './TwoLinesChart.vue';
   import axios from 'axios';
   import moment from 'moment';
-  import createForecastData from './forecastdata';
-  import getCountries, { preselectedCountry } from '../assets/countries';
+  import {createForecastData, createForecastDataVerhulst} from './forecastdata';
+  import getCountries, { preselectedCountry } from '@/assets/countries';
+  import doubleSmoothing from '@/math/smoothing';
 
 
   export default {
     name: 'ChartContainer',
-    components: {LineChart},
+    components: {LineChart, TwoLinesChart},
     data: () => ({
       loaded: false,
+      loadedForecast: false,
       loading: false,
       showError: false,
       showEndDate: false,
@@ -97,9 +139,15 @@
       deaths: [],
       newConfirmed: [],
       newDeaths: [],
+      confirmedSmoothing: [],
+      newConfirmedSmoothing: [],
       forecastData: null,
       forecastNewConfirmed: [],
       forecastChartData: null,
+      forecastDataVerhulst: null,
+      forecastVerhulstConfirmed: [],
+      forecastVerhulstNewConfirmed: [],
+      labelsVerhulst: [],
       labelConfirmed: 'Infected (total)',
       labelDeaths: 'Deaths (total)',
       labelNewConfirmed: 'Infected (daily)',
@@ -109,11 +157,13 @@
     }),
     mounted () {
       this.loaded = false;
+      this.loadedForecast = false;
       this.requestData();
     },
     methods: {
       resetState () {
         this.loaded = false;
+        this.loadedForecast = false;
         this.showError = false;
       },
       requestData () {
@@ -132,16 +182,29 @@
             this.labels = response.data.map(entry => this.dateToDay(entry.Date));
             this.newConfirmed = this.calculateDayDelta(this.confirmed);
             this.newDeaths = this.calculateDayDelta(this.deaths);
-            this.forecastData = createForecastData(this.newConfirmed, 60);
+            this.loaded = true;
+/*
+            this.forecastData = createForecastData(this.newConfirmed, 30, 'linear');
             this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
             this.forecastLabels = this.forecastData.labels;
             this.showEndDate = this.forecastData.showEndDate;
             this.isEndDateInPast = this.forecastData.isEndDateInPast;
             this.endDate = this.forecastData.endDate;
-            this.loaded = true;
+*/
+            this.newConfirmedSmoothing = doubleSmoothing(this.newConfirmed);
+            this.confirmedSmoothing = doubleSmoothing(this.confirmed);
+            this.forecastDataVerhulst = createForecastDataVerhulst(this.confirmedSmoothing, this.newConfirmedSmoothing, this.newConfirmed, null);
+            this.forecastVerhulstConfirmed = this.forecastDataVerhulst.arrayN;
+            this.forecastVerhulstNewConfirmed = this.forecastDataVerhulst.arrayDN;
+            this.labelsVerhulst = this.labels.slice().concat(this.forecastDataVerhulst.labels);
+            this.showEndDate = this.forecastDataVerhulst.showEndDate;
+            this.isEndDateInPast = this.forecastDataVerhulst.isEndDateInPast;
+            this.endDate = this.forecastDataVerhulst.endDate;
+            this.loadedForecast = true;
             this.loading = false;
           })
           .catch(err => {
+            console.log('error: ' + err.message);
             this.errorMessage = err.response.data.error;
             this.showError = true;
           });
