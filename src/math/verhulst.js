@@ -1,4 +1,5 @@
-import {extrem} from './function-analyzer';
+import {extrem, createSimpleArrayX} from './function-analyzer';
+import evaluateLinearRegression from './linear';
 
 export default evaluateVerhulst;
 
@@ -25,8 +26,8 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   let maxReal = analyzedExtremReal.max;
   let maxXReal = analyzedExtremReal.index;
 
-  let max = (maxReal > maxSmoothing)? maxReal : maxSmoothing;
-  let maxX = (maxReal > maxSmoothing)? maxXReal : maxXSmoothing;
+  let max = (maxXReal > maxXSmoothing)? maxReal : maxSmoothing;
+  let maxX = (maxXReal > maxXSmoothing)? maxXReal : maxXSmoothing;
   console.log('evaluateVerhulst() max = ' + max + '; maxX = ' + maxX);
   console.log('evaluateVerhulst() N_in_max = ' + functionValuesN[maxX] );
 
@@ -40,12 +41,13 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   const lastX = functionValuesN.length - 1;
   const lastN = functionValuesN[functionValuesN.length - 1];
 
+  // let's try to estimate value of maximal infected people M
   if (isMax) {
     M = functionValuesN[maxX] * 2;
     console.log('evaluateVerhulst() doubled M = ' + M + ', lastN = ' + lastN);
     if (M < lastN) {
-      M = Math.round(lastN * 1.05);
-      console.log('evaluateVerhulst() M = ' + M + ', lastN = ' + lastN);
+      M = Math.round(lastN * 1.3);
+      console.log('evaluateVerhulst() corrected M = ' + M + ', lastN = ' + lastN);
     }
   } else if (wholePopulation !== null) {
     // estimated value (done through many european countries): 0.25% of population will be in infected statistics
@@ -78,6 +80,13 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   let amount = 0;
   // if a day of "zero new daily infected" will be not found => the parameter will limit the forecast days
   const MAX_FORECAST_PERIOD_DAYS = 120;
+  const linearParams = getLinearParams(functionValuesDN);
+  const nextExpectedY = linearParams.nextY;
+  const linearSlope = linearParams.slope;
+  const linearCoeff = linearParams.coeff;
+  console.log('evaluateVerhulst() linearParams nextExpectedY = ' + nextExpectedY + '; linearCoeff = ' + linearCoeff + '; linearSlope = ' + linearSlope);
+  M = approximateM(rLast, N, M, nextExpectedY, linearCoeff);
+  console.log('evaluateVerhulst() approximated M = ' + M + '; N = ' + N + '; nextExpectedY = ' + nextExpectedY + '; linearSlope = ' + linearSlope);
 
   // let's calculate Verhulst forecast
   console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
@@ -87,8 +96,9 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
     arrayForecastDN.push(dN);
     arrayForecastN.push(N);
     amount++;
-    console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
+//    console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
   }
+  console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
 
   // is a day of "zero new daily infected" found?
   const reached0 = (dN === 0 || dN < 0);
@@ -236,3 +246,111 @@ function getAverageR(startIndex, endIndex, M, functionValuesN) {
 
   return result;
 }
+
+/**
+ * Calculate simple linear parameters by 2 points
+ *
+ * @param points      points of linear
+ * @returns {Object}  linear parameters
+ */
+function getLinearParams(points) {
+  let result = {};
+  const MAX_ANALYZED_VALUES = 2;
+  const arrayX = createSimpleArrayX(0, MAX_ANALYZED_VALUES);
+  const arrayForecast = createSimpleArrayX(MAX_ANALYZED_VALUES, 1);
+  const arrayY = points.slice(-1 * MAX_ANALYZED_VALUES);
+  const lastY = points[points.length - 1];
+  const previousY = points[points.length - 2];
+
+  const calculatedInterpolating = evaluateLinearRegression(arrayForecast, arrayX, arrayY);
+  const arrayForecastCalculated = calculatedInterpolating.arrayY;
+  result['slope'] = calculatedInterpolating.slope;
+  result['nextY'] = arrayForecastCalculated[0];
+  result['coeff'] = (previousY !== 0)? lastY / previousY : 0;
+  return result;
+}
+
+function approximateM(r, N, M, linearY, linearCoeff) {
+  const newM = approximateMByNextY(r, N, M, linearY);
+//  return approximateMByCoeff(r, N, newM, linearY, linearCoeff);
+  return newM;
+}
+
+/**
+ * Approximate maximum infected people M by first forecast value N (infected people at the start time) and average growth speed R
+ *
+ * @param r           average growth speed for last days R
+ * @param N           infected people at the start forecast time, it will be approximated to the point linearY
+ * @param M           last expected maximal infected people M
+ * @param linearY     approximated by linear regression point for start value N
+ * @returns {number}  improved value M
+ */
+function approximateMByNextY(r, N, M, linearY) {
+  let dN = getDailyDelta(r, N, M);
+  const acceptableError = Math.round(dN * 0.01);
+  let newM = M;
+  let nearstM = M;
+  let diff = dN - linearY;
+  let minDiff = Math.abs(diff);
+  const direction = diff > 0 ? -1 : 1;
+  let count = 0;
+  console.log('approximateMByNextY() diff = ' + diff + ', direction = ' + direction
+    + ', first dN = ' + dN + ', linearY = ' + linearY);
+  while (Math.abs(diff) > acceptableError && count < 1000 ) {
+    newM += newM * 0.0005 * direction;
+    dN = getDailyDelta(r, N, newM);
+    diff = Math.abs(dN - linearY);
+    if (diff < minDiff) {
+      minDiff = diff;
+      nearstM = newM;
+    }
+    count++;
+  }
+  console.log('approximateMByNextY() nearstM = ' + nearstM + ', minDiff = ' + minDiff+ ', count = '
+    + count+ ', diff = ' + diff+ ', dN = ' + dN);
+  return Math.round(nearstM);
+}
+
+/**
+ * Approximate maximal infected people by linear coefficient
+ *
+ * @param r
+ * @param N
+ * @param M
+ * @param linearY
+ * @param linearCoeff
+ * @returns {number}
+ *
+ * @Deprecated
+ */
+function approximateMByCoeff(r, N, M, linearY, linearCoeff) {
+  let dN = getDailyDelta(r, N, M);
+  let newM = M;
+  let nearstM = M;
+  let diff = dN - linearY;
+  let minDiff = null;
+  const direction = diff > 0 ? -1 : 1;
+  let count = 0;
+  let dN1, dN2, coeff;
+  console.log('approximateM() diff = ' + diff + ', direction = ' + direction + ', first dN = ' + dN + ', linearY = ' + linearY + ', linearCoeff = ' + linearCoeff);
+  diff = 1;
+  while (diff > 0.005 && count < 1000 ) {
+    newM += newM * 0.0005 * direction;
+
+    dN1 = getDailyDelta(r, N, newM);
+    dN2 = getDailyDelta(r, N + dN1, newM);
+    coeff = (dN1 !== 0)? dN2 / dN1 : 0;
+
+    diff = Math.abs(linearCoeff - coeff);
+    if (diff < minDiff || minDiff === null) {
+      minDiff = diff;
+      nearstM = newM;
+    }
+    count++;
+//    console.log('approximateM() minDiff = ' + minDiff + ', diff = ' + diff + ', coeff = ' + coeff + ', linearCoeff = ' + linearCoeff + ', nearstM = ' + nearstM + ', newM = ' + newM + ', count = ' + count);
+
+  }
+  console.log('approximateM() nearstM = ' + nearstM + ', minDiff = ' + minDiff+ ', count = ' + count+ ', diff = ' + diff+ ', dN = ' + dN);
+  return Math.round(nearstM);
+}
+

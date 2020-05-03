@@ -506,6 +506,6 @@ const countries = [
   }, {"Country": "Zambia", "Slug": "zambia", "ISO2": "ZM"}, {"Country": "Zimbabwe", "Slug": "zimbabwe", "ISO2": "ZW"}];
 
 
-export default countries.sort((a, b) => a.Country > b.Country);
+export default countries; //.sort((a, b) => a.Country > b.Country);
 export const preselectedCountry = process.env.VUE_APP_I18N_COUNTRY || 'germany';
 export const selectedSlug = {"Slug": preselectedCountry};

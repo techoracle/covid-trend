@@ -1,6 +1,7 @@
 import evaluateLinearRegression from '@/math/linear';
 import evaluateVerhulst from '@/math/verhulst';
 import evaluatePolynomialInterpolation from '@/math/polynomial-interpolation';
+import {createSimpleArrayX} from '@/math/function-analyzer';
 import moment from 'moment';
 
 export {createForecastData, createForecastDataVerhulst};
@@ -8,8 +9,8 @@ export {createForecastData, createForecastDataVerhulst};
 function createForecastData(points, amount, algorithm) {
   let result = {};
   const MAX_ANALYZED_VALUES = 15;
-  const arrayX = createSimpleArrayX(MAX_ANALYZED_VALUES, 0);
-  const arrayForecast = createSimpleArrayX(amount, MAX_ANALYZED_VALUES);
+  const arrayX = createSimpleArrayX(0, MAX_ANALYZED_VALUES);
+  const arrayForecast = createSimpleArrayX(MAX_ANALYZED_VALUES, amount);
   const arrayY = points.slice(-1 * MAX_ANALYZED_VALUES);
 
   const calculatedInterpolating = (algorithm === 'linear')?
@@ -58,16 +59,6 @@ function createForecastDataVerhulst(functionValuesN, functionValuesDN, realDN, w
   result['endDate'] = calculatedEndDate.endDate;
   result['isEndDateInPast'] = calculatedEndDate.isEndDateInPast;
 
-  return result;
-}
-
-
-
-function createSimpleArrayX(amount, firstvalue) {
-  const result = [];
-  for (let i = 0; i < amount; i++) {
-    result.push(i + firstvalue);
-  }
   return result;
 }
 

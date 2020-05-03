@@ -77,7 +77,7 @@
     <div class="Chart">
       <h2>{{ $t('forecastTotalInfected') }}</h2>
       <two-lines-chart
-        v-if="loadedForecast"
+        v-if="loadedForecastConfirmed"
         :chart-labels="labelsVerhulst"
         :chart-data-first="confirmed"
         :data-label-first="labelConfirmed"
@@ -89,11 +89,35 @@
     <div class="Chart">
       <h2>{{ $t('forecastDailyInfected') }}</h2>
       <two-lines-chart
-        v-if="loadedForecast"
+        v-if="loadedForecastConfirmed"
         :chart-labels="labelsVerhulst"
         :chart-data-first="newConfirmed"
         :data-label-first="labelNewConfirmed"
         :chart-data-second="forecastVerhulstNewConfirmed"
+        :data-label-second="labelForecast"
+      />
+    </div>
+
+    <div class="Chart">
+      <h2>{{ $t('forecastTotalDeaths') }}</h2>
+      <two-lines-chart
+        v-if="loadedForecastDeaths"
+        :chart-labels="labelsVerhulst"
+        :chart-data-first="deaths"
+        :data-label-first="labelDeaths"
+        :chart-data-second="forecastVerhulstDeaths"
+        :data-label-second="labelForecast"
+      />
+    </div>
+
+    <div class="Chart">
+      <h2>{{ $t('forecastDailyDeaths') }}</h2>
+      <two-lines-chart
+        v-if="loadedForecastDeaths"
+        :chart-labels="labelsVerhulst"
+        :chart-data-first="newDeaths"
+        :data-label-first="labelNewDeaths"
+        :chart-data-second="forecastVerhulstNewDeaths"
         :data-label-second="labelForecast"
       />
     </div>
@@ -126,7 +150,8 @@
     components: {LineChart, TwoLinesChart},
     data: () => ({
       loaded: false,
-      loadedForecast: false,
+      loadedForecastConfirmed: false,
+      loadedForecastDeaths: false,
       loading: false,
       showError: false,
       showEndDate: false,
@@ -141,12 +166,17 @@
       newDeaths: [],
       confirmedSmoothing: [],
       newConfirmedSmoothing: [],
+      deathsSmoothing: [],
+      newDeathsSmoothing: [],
       forecastData: null,
       forecastNewConfirmed: [],
       forecastChartData: null,
-      forecastDataVerhulst: null,
+      forecastDataVerhulstConfirmed: null,
+      forecastDataVerhulstDeaths: null,
       forecastVerhulstConfirmed: [],
       forecastVerhulstNewConfirmed: [],
+      forecastVerhulstDeaths: [],
+      forecastVerhulstNewDeaths: [],
       labelsVerhulst: [],
       labelConfirmed: 'Infected (total)',
       labelDeaths: 'Deaths (total)',
@@ -157,13 +187,15 @@
     }),
     mounted () {
       this.loaded = false;
-      this.loadedForecast = false;
+      this.loadedForecastConfirmed = false;
+      this.loadedForecastDeaths = false;
       this.requestData();
     },
     methods: {
       resetState () {
         this.loaded = false;
-        this.loadedForecast = false;
+        this.loadedForecastConfirmed = false;
+        this.loadedForecastDeaths = false;
         this.showError = false;
       },
       requestData () {
@@ -193,14 +225,23 @@
 */
             this.newConfirmedSmoothing = doubleSmoothing(this.newConfirmed);
             this.confirmedSmoothing = doubleSmoothing(this.confirmed);
-            this.forecastDataVerhulst = createForecastDataVerhulst(this.confirmedSmoothing, this.newConfirmedSmoothing, this.newConfirmed, null);
-            this.forecastVerhulstConfirmed = this.forecastDataVerhulst.arrayN;
-            this.forecastVerhulstNewConfirmed = this.forecastDataVerhulst.arrayDN;
-            this.labelsVerhulst = this.labels.slice().concat(this.forecastDataVerhulst.labels);
-            this.showEndDate = this.forecastDataVerhulst.showEndDate;
-            this.isEndDateInPast = this.forecastDataVerhulst.isEndDateInPast;
-            this.endDate = this.forecastDataVerhulst.endDate;
-            this.loadedForecast = true;
+            this.deathsSmoothing = doubleSmoothing(this.deaths);
+            this.newDeathsSmoothing = doubleSmoothing(this.newDeaths);
+
+            this.forecastDataVerhulstConfirmed = createForecastDataVerhulst(this.confirmedSmoothing, this.newConfirmedSmoothing, this.newConfirmed, null);
+            this.forecastVerhulstConfirmed = this.forecastDataVerhulstConfirmed.arrayN;
+            this.forecastVerhulstNewConfirmed = this.forecastDataVerhulstConfirmed.arrayDN;
+            this.labelsVerhulst = this.labels.slice().concat(this.forecastDataVerhulstConfirmed.labels);
+            this.showEndDate = this.forecastDataVerhulstConfirmed.showEndDate;
+            this.isEndDateInPast = this.forecastDataVerhulstConfirmed.isEndDateInPast;
+            this.endDate = this.forecastDataVerhulstConfirmed.endDate;
+            this.loadedForecastConfirmed = true;
+
+            this.forecastDataVerhulstDeaths = createForecastDataVerhulst(this.deathsSmoothing, this.newDeathsSmoothing, this.newDeaths, null);
+            this.forecastVerhulstDeaths = this.forecastDataVerhulstDeaths.arrayN;
+            this.forecastVerhulstNewDeaths = this.forecastDataVerhulstDeaths.arrayDN;
+            this.loadedForecastDeaths = true;
+
             this.loading = false;
           })
           .catch(err => {

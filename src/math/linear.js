@@ -6,18 +6,17 @@ export default evaluateLinearRegression;
  * or at a single number for the function y=f(x)
  *
  * @param {Number|Array} pointsToEvaluate     number or set of numbers
- *                                            for which polynomial is calculated
+ *                                            for which linear is calculated
  * @param {Array} functionValuesX             set of distinct x values
  * @param {Array} functionValuesY             set of distinct y=f(x) values
  * @returns {Array}
  */
-
 function evaluateLinear(pointsToEvaluate, functionValuesX, functionValuesY) {
   const results = [];
   pointsToEvaluate = makeItArrayIfItsNot(pointsToEvaluate);
   pointsToEvaluate.forEach(function (point) {
     let index = findIntervalBorderIndex(point, functionValuesX);
-    if (index == functionValuesX.length - 1) {
+    if (index === functionValuesX.length - 1) {
       index--;
     }
     let result = linearInterpolation(point, functionValuesX[index], functionValuesY[index],
@@ -42,7 +41,6 @@ function evaluateLinear(pointsToEvaluate, functionValuesX, functionValuesY) {
  * @param y1
  * @returns {Number}
  */
-
 function linearInterpolation(x, x0, y0, x1, y1) {
   const a = (y1 - y0) / (x1 - x0);
   const b = -a * x0 + y0;
@@ -55,7 +53,6 @@ function linearInterpolation(x, x0, y0, x1, y1) {
  * @param input
  * @returns {Array}
  */
-
 function makeItArrayIfItsNot(input) {
   return Object.prototype.toString.call(input) !== '[object Array]'
     ? [input]
@@ -73,7 +70,6 @@ function makeItArrayIfItsNot(input) {
  * @param {Boolean} useRightBorder
  * @returns {Number}
  */
-
 function findIntervalBorderIndex(point, intervals, useRightBorder) {
   //If point is beyond given intervals
   if (point < intervals[0])
@@ -95,6 +91,16 @@ function findIntervalBorderIndex(point, intervals, useRightBorder) {
   return useRightBorder ? rightBorderIndex : leftBorderIndex
 }
 
+/**
+ * Evaluates interpolating line/lines at the set of numbers
+ * or at a single number for the function y=f(x)
+ *
+ * @param {Number|Array} pointsToEvaluate     number or set of numbers
+ *                                            for which linear interpolation is calculated
+ * @param {Array} functionValuesX             set of distinct x values
+ * @param {Array} functionValuesY             set of distinct y=f(x) values
+ * @returns {Object}                          result of linear interpolation
+ */
 function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionValuesY) {
   let result = {};
   const arrayY = [];
@@ -121,7 +127,13 @@ function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionVal
 }
 
 
-
+/**
+ * Calculate linear regression
+ *
+ * @param {Array} arrayX             set of distinct x values
+ * @param {Array} arrayY             set of distinct y=f(x) values
+ * @returns                          result of linear interpolation
+ */
 function linearRegression(arrayX, arrayY) {
   let lr = {};
   let n = arrayY.length;
@@ -148,6 +160,12 @@ function linearRegression(arrayX, arrayY) {
   return lr;
 }
 
+/**
+ * Validate array of Y and fix NaN values
+ *
+ * @param arrayY     array of Y to analyze
+ * @returns {Array}  corrected array Y
+ */
 function validateArrayY(arrayY) {
   let result = [];
   arrayY.forEach(function(y, index) {

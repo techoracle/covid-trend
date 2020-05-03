@@ -1,4 +1,4 @@
-export {extrem, bellPosition};
+export {extrem, bellPosition, createSimpleArrayX};
 
 
 function extrem(arrayY) {
@@ -51,4 +51,13 @@ function bellPosition(x, maxX) {
   }
   return position;
 }
+
+function createSimpleArrayX(firstvalue, amount) {
+  const result = [];
+  for (let i = 0; i < amount; i++) {
+    result.push(i + firstvalue);
+  }
+  return result;
+}
+
 

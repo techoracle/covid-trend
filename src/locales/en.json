@@ -8,6 +8,8 @@
   "forecast":"Forecast",
   "forecastTotalInfected":"Forecast: trend of total infected people",
   "forecastDailyInfected":"Forecast: trend of daily infected people",
+  "forecastTotalDeaths":"Forecast: trend of total deaths",
+  "forecastDailyDeaths":"Forecast: trend of daily deaths",
   "forecastDescription1":"The calculation of the forecast is based on the data of infected people collected and submitted to the Johns Hopkins University. ",
   "forecastDescription2":"The method of Verhulst population growth model was used to analyze the data. The results are represented in the diagrams below. ",
   "forecastDescription3":"The direction of the forecast illustrates in terms of figures and under consideration of the statistical method the best matched line of the collected data. ",
@@ -19,5 +21,7 @@
   "alreadyReached": "already reached",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Data of Johns Hopkins University",
-  "linkVerhulst": "Verhulst population growth model"
+  "linkVerhulst": "Verhulst population growth model",
+  "aboutOpenSource": "This project is Open Source",
+  "aboutTarget": "Target of the project is to show pandemic statistics and to apply mathematical models to forecast the further evolution"
 }

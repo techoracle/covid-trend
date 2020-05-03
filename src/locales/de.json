@@ -8,6 +8,8 @@
   "forecast":"Prognose",
   "forecastTotalInfected":"Prognose: Trend der gesamt infizierten Personen",
   "forecastDailyInfected":"Prognose: Trend der täglich infizierten Personen",
+  "forecastTotalDeaths":"Prognose: Trend der gesamt Todesfälle",
+  "forecastDailyDeaths":"Prognose: Trend der täglich Todesfälle",
   "forecastDescription1":"Die Berechnung der Prognose basiert auf den Daten der infizierten Personen, die gesammelt und an die Johns Hopkins University übermittelt wurden. ",
   "forecastDescription2":"Zur Analyse der Daten wurde die Methode der Verhulst's logistischen Gleichung verwendet. Die Ergebnisse sind in den Grafiken unten dargestellt. ",
   "forecastDescription3":"Die Richtung der Prognose veranschaulicht in Zahlen und unter Berücksichtigung der statistischen Methode die am besten übereinstimmende Linie der gesammelten Daten. ",
