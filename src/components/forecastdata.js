@@ -46,14 +46,14 @@ function createForecastDataVerhulst(functionValuesN, functionValuesDN, realDN, w
   const calculatedVerhulst = evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopulation);
 
   const labels = generateDateLabels(calculatedVerhulst.arrayForecastN.length);
-  const calculatedEndDate = getEndDate(calculatedVerhulst.reached0, labels, functionValuesDN);
+  const calculatedEndDate = getEndDate(calculatedVerhulst.reachedEnd, labels, functionValuesDN);
 
   result['labels'] = labels;
   result['arrayForecastDN'] = calculatedVerhulst.arrayForecastDN;
   result['arrayForecastN'] = calculatedVerhulst.arrayForecastN;
   result['arrayDN'] = calculatedVerhulst.arrayDN;
   result['arrayN'] = calculatedVerhulst.arrayN;
-  result['reached0'] = calculatedVerhulst.reached0;
+  result['reachedEnd'] = calculatedVerhulst.reachedEnd;
 
   result['showEndDate'] = calculatedEndDate.showEndDate;
   result['endDate'] = calculatedEndDate.endDate;
@@ -70,7 +70,7 @@ function generateDateLabels(amount) {
   return result;
 }
 
-function getEndDate(reached0, labels, arrayY) {
+function getEndDate(reachedEnd, labels, arrayY) {
   let result = {};
 
   let showEndDate = false;
@@ -83,7 +83,7 @@ function getEndDate(reached0, labels, arrayY) {
     showEndDate = true;
     isEndDateInPast = true;
     endDate = '';
-  } else if (reached0) {
+  } else if (reachedEnd) {
     showEndDate = true;
     endDate = labels[labels.length - 1];
   }

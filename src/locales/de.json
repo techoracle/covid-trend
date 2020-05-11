@@ -18,8 +18,18 @@
   "feedback": "Falls Sie eine positive oder negative Antwort hinterlassen möchten, bitte wenden Sie sich an ",
   "here": "diese Adresse",
   "forecastEndDay": "Erwartetes Datum ohne neue täglich Infizierte",
+  "forecastApproxEndDay": "Erwartete Dämpfung der Epidemie auf 99,99%",
   "alreadyReached": "schon erreicht",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Daten von Johns Hopkins Universität",
-  "linkVerhulst": "Trend-Methode der Verhulst's logistischen Gleichung"
+  "linkVerhulst": "Trend-Methode der Verhulst's logistischen Gleichung",
+  "aboutTargetPart1": "Ziel des Projekts ist die offizielle Coronavirus-Statistik in einer bequemeren und verständlicheren Form zu präsentieren sowie die Anwendung der Verhulst Theorie auf die Populationsdynamik des Coronavirus-Wachstums und die Entwicklung mathematischer Modelle zur Vorhersage der Entwicklung der Epidemie und des möglichen Datums ihres Endes zusammen zu forschen. ",
+  "aboutTargetPart2": "Dieses Open-Source-Projekt bietet jedermann die Möglichkeit, den Algorithmus für die Erhebung von Statistiken und die Berechnung von Prognosen zu testen sowie unentgeltlich zum Studium mathematischer Methoden für die Dynamik der Ausbreitung von Virusepidemien beizutragen. Schließen Sie sich uns an! ",
+  "aboutTargetPart3": "Der offene Code ist verfügbar unter",
+  "github": "Github",
+  "ruTitleDescription": "(basierend auf Rospotrebnadzor-Daten* und analysiert mit Trend-Methode der Verhulst's logistischen Gleichung*)",
+  "linkRospotrebnadzor": "Rospotrebnadzor-Daten",
+  "globalTitle": "COVID-19: Statistiken und Vorhersagen weltweit",
+  "usTitle": "COVID-19: Statistiken und Prognosen für US-Bundesstaaten und -Städte",
+  "ruTitle": "COVID-19: Statistiken und Prognosen nach Regionen Russlands"
 }

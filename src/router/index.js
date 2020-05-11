@@ -6,6 +6,8 @@ import { languages } from '@/plugins/i18n'
 import store from '@/store'
 import countries from '@/assets/countries'
 import About from '@/views/About.vue'
+import US from '@/views/US.vue'
+import Russia from '@/views/Russia.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -20,10 +22,10 @@ const routes = [
     path: '/:lang',
     component: App,
     beforeEnter(to, from, next) {
-      let lang = to.params.lang
+      let lang = to.params.lang;
       if (languages.includes(lang)) {
         if (store.state.locale !== lang) {
-          store.dispatch('changeLocale', lang)
+          store.dispatch('changeLocale', lang);
         }
         return next()
       }
@@ -39,6 +41,16 @@ const routes = [
         path: 'about',
         name: 'about',
         component: About
+      },
+      {
+        path: 'us',
+        name: 'US',
+        component: US
+      },
+      {
+        path: 'russia',
+        name: 'Russia',
+        component: Russia
       }
     ]
   }

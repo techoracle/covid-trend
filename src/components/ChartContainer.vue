@@ -9,7 +9,7 @@
     <div v-if="showEndDate" class="table-responsive withOffsetTop">
       <table class="table table-striped table-sm">
         <tr>
-          <td class="leftAlign goodNewsBg">{{ $t('forecastEndDay') }}</td>
+          <td class="leftAlign goodNewsBg">{{ $t('forecastApproxEndDay') }}</td>
           <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b><b v-if="isEndDateInPast">{{ $t('alreadyReached') }} </b></td>
         </tr>
       </table>
@@ -43,6 +43,8 @@
           :data-label="labelDeaths"
         />
       </div>
+
+
       <div class="Chart">
         <h2>{{ $t('deathsDaily') }}</h2>
         <line-chart
@@ -52,6 +54,7 @@
           :data-label="labelNewDeaths"
         />
       </div>
+
 
     <!--
       <div class="Chart">
@@ -110,6 +113,7 @@
       />
     </div>
 
+    <!--
     <div class="Chart">
       <h2>{{ $t('forecastDailyDeaths') }}</h2>
       <two-lines-chart
@@ -121,16 +125,7 @@
         :data-label-second="labelForecast"
       />
     </div>
-
-    <br>
-    <div class="leftAlign">
-      <h4>{{ $t('links') }}</h4>
-      <ul>
-        <li><small><a href="https://github.com/CSSEGISandData/COVID-19">{{ $t('linkJohnsHopkinsUniversity') }}</a></small></li>
-        <li><small><a href="https://en.wikipedia.org/wiki/Logistic_function">{{ $t('linkVerhulst') }}</a></small></li>
-      </ul>
-    </div>
-
+    -->
 
   </div>
 </template>
@@ -148,6 +143,24 @@
   export default {
     name: 'ChartContainer',
     components: {LineChart, TwoLinesChart},
+    props: {
+      componentType: {
+        type: String,
+        required: true
+      },
+      countriesList: {
+        type: Array,
+        required: true
+      },
+      preselectedItem: {
+        type: String,
+        required: true
+      },
+      storeChange: {
+        type: String,
+        required: true
+      }
+    },
     data: () => ({
       loaded: false,
       loadedForecastConfirmed: false,
@@ -183,12 +196,15 @@
       labelNewConfirmed: 'Infected (daily)',
       labelNewDeaths: 'Deaths (daily)',
       labelForecast: 'Forecast',
-      countries: getCountries
+      countries: null,
+      currentJsonFile: null
     }),
     mounted () {
       this.loaded = false;
       this.loadedForecastConfirmed = false;
       this.loadedForecastDeaths = false;
+      this.countries = this.countriesList;
+      this.selectedCountry = this.preselectedItem;
       this.requestData();
     },
     methods: {
@@ -207,7 +223,13 @@
         this.resetState();
         this.loading = true;
         console.log('loading');
-        axios.get(`https://api.covid19api.com/total/dayone/country/${this.selectedCountry}`)
+        const host = window.location.host;
+        const protocol = window.location.href.toString().split(window.location.host)[0];
+        const url = protocol + host;
+
+//        axios.get(`https://covid-trend.info/static/datasource/global/${this.selectedCountry}.json`)
+//        axios.get(`https://api.covid19api.com/total/dayone/country/${this.selectedCountry}`)
+        axios.get(`${url}/static/datasource/${this.componentType}/${this.selectedCountry}.json`)
           .then(response => {
             this.confirmed = response.data.map(entry => entry.Confirmed);
             this.deaths = response.data.map(entry => entry.Deaths);
@@ -251,6 +273,20 @@
           });
 
       },
+      requestCountries() {
+        let result = [];
+        console.log('loading countries');
+        axios.get(`https://covid-trend.info/static/datasource/global/countries.json`)
+          .then(response => {
+            result = response.data;
+          })
+          .catch(err => {
+            console.log('error: ' + err.message);
+            this.errorMessage = err.response.data.error;
+            this.showError = true;
+          });
+        return result;
+      },
       dateToDay(date) {
         return moment(date).format('YYYY-MM-DD');
       },
@@ -267,16 +303,26 @@
           result.push(moment().add(i, 'days').format('YYYY-MM-DD'));
         }
         return result;
+      },
+      getJsonFile (index) {
+
+        this.currentJsonFile = async () => {
+          const runtimeConfig = await fetch('/' + index );
+          console.log('runtimeConfig: ' + runtimeConfig);
+          return await runtimeConfig.json();
+        };
+
+        console.log('currentJsonFile: ' + this.currentJsonFile);
       }
     },
     computed: {
       selectedCountry: {
         get: function() {
-          return this.$store.state.country || preselectedCountry;
-          //return getCountries.find(x => x.Country === countryName).Slug;
+          return this.preselectedItem;
         },
         set: function(newVal) {
-          this.$store.dispatch('changeCountry', newVal)
+          this.$store.dispatch(this.storeChange, newVal);
+          this.preselectedItem = newVal;
         }
       }
     }

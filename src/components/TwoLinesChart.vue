@@ -15,11 +15,11 @@
         required: true
       },
       dataLabelFirst: {
-        type: Object,
+        type: String,
         required: true
       },
       dataLabelSecond: {
-        type: Object,
+        type: String,
         required: true
       }
     },

@@ -18,10 +18,20 @@
   "feedback": "In case of new idea, review, positive or negative response please provide your feedback",
   "here": "here",
   "forecastEndDay": "Expected date without new daily infected",
+  "forecastApproxEndDay": "The date to reach 99.99% of the total expected cases",
   "alreadyReached": "already reached",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Data of Johns Hopkins University",
   "linkVerhulst": "Verhulst population growth model",
   "aboutOpenSource": "This project is Open Source",
-  "aboutTarget": "Target of the project is to show pandemic statistics and to apply mathematical models to forecast the further evolution"
+  "aboutTargetPart1": "The aim of the project is to present official coronavirus statistics in a more convenient and understandable form, as well as to study the application of Verhulst's theory to the population dynamics of coronavirus growth and the development of mathematical models to forecast the development of the epidemic and the possible date of its end.",
+  "aboutTargetPart2": "This open source project provides everyone with the opportunity to test the algorithm for collecting statistics and calculating forecasts, as well as to contribute gratuitously to the study of mathematical methods for the dynamics of the spread of viral epidemics. Join us! ",
+  "aboutTargetPart3": "The open code is available on",
+  "github": "github",
+  "ruTitleDescription": "(based on Rospotrebnadzor data* and Ferhulst trend analysis of population dynamics*)",
+  "linkRospotrebnadzor": "Rospotrebnadzor data",
+  "globalTitle": "COVID-19: worldwide statistics and forecasts",
+  "usTitle": "COVID-19: Statistics and forecasts for US states and cities",
+  "ruTitle": "COVID-19: Statistics and forecast by regions of Russia"
+
 }

@@ -6,17 +6,31 @@
       <h1>{{ $t('title') }} </h1>
       <small>{{ $t('titleDescription') }}</small>
       <p></p>
-      <chart-container></chart-container>
+      <chart-container
+        :component-type="compType"
+        :countries-list="countries"
+        :preselected-item="preselected"
+        :store-change="storeChangeAction">
+
+      </chart-container>
+
+      <br>
+      <div class="leftAlign">
+        <h4>{{ $t('links') }}</h4>
+        <ul>
+          <li><small><a href="https://github.com/CSSEGISandData/COVID-19">{{ $t('linkJohnsHopkinsUniversity') }}</a></small></li>
+          <li><small><a href="https://en.wikipedia.org/wiki/Logistic_function">{{ $t('linkVerhulst') }}</a></small></li>
+          <li><small><a href="/#/en/us">{{ $t('usTitle') }}</a></small></li>
+          <li><small><a href="/#/ru/russia">{{ $t('ruTitle') }}</a></small></li>
+        </ul>
+      </div>
+
     </div>
+
 
 
     <footer class="footer mt-auto py-3">
       <div class="container">
-        <!--
-        <div class="leftAlign">
-          <span class="text-muted ">Questions? Mail to <a href="mailto:bewsof@yahoo.de">admin</a>.</span>
-        </div>
-        -->
         <div class="rightAlign">
           <router-link :to="{ name: 'about' }"> {{ $t('about') }} </router-link>
         </div>
@@ -29,13 +43,30 @@
 
 <script>
   import ChartContainer from '../components/ChartContainer.vue';
-  import LangDropdown from '../components/LangDropdown.vue'
+  import LangDropdown from '../components/LangDropdown.vue';
+  import getCountries, {preselectedCountry} from '../assets/countries';
+
 
   export default {
     name: 'app',
     components: {
       ChartContainer,
       LangDropdown
+    },
+    data: () => ({
+      compType: 'global',
+      countries: getCountries,
+      storeChangeAction: 'changeCountry'
+    }),
+    computed: {
+      preselected: {
+        get: function () {
+          return this.$store.state.country || preselectedCountry;
+        },
+        set: function (newVal) {
+          this.$store.dispatch('changeCountry', newVal)
+        }
+      }
     }
   }
 </script>

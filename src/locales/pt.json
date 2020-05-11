@@ -18,10 +18,18 @@
   "feedback": "Em caso de nova ideia, revisão, resposta positiva ou negativa, por favor forneça o seu feedback",
   "here": "aqui",
   "forecastEndDay": "Data prevista sem novas infecções diárias",
+  "forecastApproxEndDay": "Data prevista para a atenuação da epidemia: 99,99%",
   "alreadyReached": "já alcançado",
   "links": "*Ligações",
   "linkJohnsHopkinsUniversity": "Dados da Universidade Johns Hopkins",
   "linkVerhulst": "Modelo de crescimento da população de Verhulst",
-  "aboutOpenSource": "This project is Open Source",
-  "aboutTarget": "Target of the project is to show pandemic statistics and to apply mathematical models to forecast the further evolution"
+  "aboutTargetPart1": "O objectivo do projecto é apresentar estatísticas oficiais dos coronavírus de uma forma mais conveniente e compreensível, bem como estudar a aplicação da teoria de Verhulst à dinâmica do crescimento populacional dos coronavírus e o desenvolvimento de modelos matemáticos para prever a evolução da epidemia e a possível data do seu fim. ",
+  "aboutTargetPart2": "Este projecto de código aberto oferece a todos a oportunidade de testar o algoritmo de recolha de estatísticas e cálculo da previsão, bem como de contribuir gratuitamente para o estudo de métodos matemáticos para a dinâmica da epidemia viral. Junte-se a nós! ",
+  "aboutTargetPart3": "O código aberto está disponível em",
+  "github": "github",
+  "ruTitleDescription": "(com base nos dados Rospotrebnadzor* e na análise das tendências Verhulst da dinâmica populacional*)",
+  "linkRospotrebnadzor": "Dados do Rospotrebnadzor",
+  "globalTitle": "COVID-19: Estatísticas e previsões a nível mundial",
+  "usTitle": "COVID-19: Estatísticas e previsões para os estados e cidades dos EUA",
+  "ruTitle": "COVID-19: Estatísticas e previsões por regiões da Rússia"
 }

@@ -1,0 +1,23 @@
+{
+  "name": "covid-data-aggregator",
+  "version": "1.0.0",
+  "description": "This project aggregates covid related data from different sources",
+  "main": "./download.js",
+  "scripts": {
+    "download": "node ./download",
+    "parse": "node ./parse"
+  },
+  "keywords": [
+    "COVID-19",
+    "coronavirus",
+    "pandemic"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techoracle/covid-data-aggregator.git"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "csv-parse": "^4.8.8"
+  }
+}

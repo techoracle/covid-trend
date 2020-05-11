@@ -79,7 +79,8 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   // counter for amount of forecast days
   let amount = 0;
   // if a day of "zero new daily infected" will be not found => the parameter will limit the forecast days
-  const MAX_FORECAST_PERIOD_DAYS = 120;
+  const MAX_FORECAST_PERIOD_DAYS = 720;
+  const MAX_FORECAST_PERIOD_DAYS_TO_SHOW = 120;
   const linearParams = getLinearParams(functionValuesDN);
   const nextExpectedY = linearParams.nextY;
   const linearSlope = linearParams.slope;
@@ -88,20 +89,25 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   M = approximateM(rLast, N, M, nextExpectedY, linearCoeff);
   console.log('evaluateVerhulst() approximated M = ' + M + '; N = ' + N + '; nextExpectedY = ' + nextExpectedY + '; linearSlope = ' + linearSlope);
 
+  const COEFF_OF_PANDEMY_END = 0.9999;
   // let's calculate Verhulst forecast
   console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
-  while (dN > 0 && amount < MAX_FORECAST_PERIOD_DAYS) {
+  let offsetToEnd = 0.0;
+  while (offsetToEnd < COEFF_OF_PANDEMY_END && dN > 0 && amount < MAX_FORECAST_PERIOD_DAYS) {
     dN = getDailyDelta(rLast, N, M);
     N += dN;
-    arrayForecastDN.push(dN);
-    arrayForecastN.push(N);
+    offsetToEnd = N / M;
+    if (amount < MAX_FORECAST_PERIOD_DAYS_TO_SHOW) {
+      arrayForecastDN.push(dN);
+      arrayForecastN.push(N);
+    }
     amount++;
 //    console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
   }
-  console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
+  console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; offsetToEnd = ' + offsetToEnd + '; amount = ' + amount);
 
-  // is a day of "zero new daily infected" found?
-  const reached0 = (dN === 0 || dN < 0);
+  // is a day of "pandemy end" found?
+  const reachedEnd = (offsetToEnd >= COEFF_OF_PANDEMY_END || dN === 0);
   // whole data: statistics + forecast
   let arrayN = functionValuesN.slice().concat(arrayForecastN);
   let arrayDN = functionValuesDN.slice().concat(arrayForecastDN);
@@ -116,7 +122,7 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   result['max'] = max;
   result['maxX'] = maxX;
   result['startIndex'] = startIndex;
-  result['reached0'] = reached0;
+  result['reachedEnd'] = reachedEnd;
 
   return result;
 }

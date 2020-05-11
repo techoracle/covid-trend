@@ -11,7 +11,7 @@
         required: true
       },
       dataLabel: {
-        type: Object,
+        type: String,
         required: true
       }
     },
