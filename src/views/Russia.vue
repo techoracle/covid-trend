@@ -37,11 +37,30 @@
 
     </div>
 
-
+<!--
     <footer class="footer mt-auto py-3">
       <div class="container">
         <div class="rightAlign">
           <router-link :to="{ name: 'about' }"> {{ $t('about') }} </router-link>
+        </div>
+      </div>
+    </footer>
+-->
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+
+        <div class="table-responsive">
+          <table cellspacing="0" cellpadding="0" class="table table-sm">
+            <tr>
+              <td class="leftAlign">© 2020 <a href="https://covid-trend.info">covid-trend.info</a>
+                ({{ $t('licensedUnder') }}
+                <a href="https://github.com/techoracle/covid-trend/blob/master/LICENSE">MIT</a>)
+              </td>
+              <td align="right">
+                <router-link :to="{ name: 'about' }"> {{ $t('about') }} </router-link>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </footer>

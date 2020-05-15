@@ -14,11 +14,11 @@
   "forecastDescription2":"Zur Analyse der Daten wurde die Methode der Verhulst's logistischen Gleichung verwendet. Die Ergebnisse sind in den Grafiken unten dargestellt. ",
   "forecastDescription3":"Die Richtung der Prognose veranschaulicht in Zahlen und unter Berücksichtigung der statistischen Methode die am besten übereinstimmende Linie der gesammelten Daten. ",
   "forecastDescription4":"Die Zukunftsprognose ist abhängig von der aktuellen Situation und den politischen Aktionen in jedem Land. Tägliche Auswirkungen können die Trendrichtung beeinflussen. Bitte verfolgen Sie die Veränderungen periodisch, um informiert zu werden!",
-  "about": "Über das Project",
+  "about": "Über das Projekt",
   "feedback": "Falls Sie eine positive oder negative Antwort hinterlassen möchten, bitte wenden Sie sich an ",
   "here": "diese Adresse",
   "forecastEndDay": "Erwartetes Datum ohne neue täglich Infizierte",
-  "forecastApproxEndDay": "Erwartete Dämpfung der Epidemie auf 99,99%",
+  "forecastApproxEndDay": "Das erwartete Datum der Erreichung 99,99% der gesamten, infizierten Fälle",
   "alreadyReached": "schon erreicht",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Daten von Johns Hopkins Universität",
@@ -31,5 +31,6 @@
   "linkRospotrebnadzor": "Rospotrebnadzor-Daten",
   "globalTitle": "COVID-19: Statistiken und Vorhersagen weltweit",
   "usTitle": "COVID-19: Statistiken und Prognosen für US-Bundesstaaten und -Städte",
-  "ruTitle": "COVID-19: Statistiken und Prognosen nach Regionen Russlands"
+  "ruTitle": "COVID-19: Statistiken und Prognosen nach Regionen Russlands",
+  "licensedUnder": "lizensiert unter"
 }

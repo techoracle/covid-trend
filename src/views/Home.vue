@@ -18,25 +18,42 @@
       <div class="leftAlign">
         <h4>{{ $t('links') }}</h4>
         <ul>
-          <li><small><a href="https://github.com/CSSEGISandData/COVID-19">{{ $t('linkJohnsHopkinsUniversity') }}</a></small></li>
-          <li><small><a href="https://en.wikipedia.org/wiki/Logistic_function">{{ $t('linkVerhulst') }}</a></small></li>
-          <li><small><a href="/#/en/us">{{ $t('usTitle') }}</a></small></li>
-          <li><small><a href="/#/ru/russia">{{ $t('ruTitle') }}</a></small></li>
+          <li>
+            <small><a href="https://github.com/CSSEGISandData/COVID-19">{{ $t('linkJohnsHopkinsUniversity') }}</a>
+            </small>
+          </li>
+          <li>
+            <small><a href="https://en.wikipedia.org/wiki/Logistic_function">{{ $t('linkVerhulst') }}</a></small>
+          </li>
+          <li>
+            <small><a href="/#/en/us">{{ $t('usTitle') }}</a></small>
+          </li>
+          <li>
+            <small><a href="/#/ru/russia">{{ $t('ruTitle') }}</a></small>
+          </li>
         </ul>
       </div>
 
     </div>
 
-
-
     <footer class="footer mt-auto py-3">
       <div class="container">
-        <div class="rightAlign">
-          <router-link :to="{ name: 'about' }"> {{ $t('about') }} </router-link>
+
+        <div class="table-responsive">
+          <table cellspacing="0" cellpadding="0" class="table table-sm">
+            <tr>
+              <td class="leftAlign">© 2020 <a href="https://covid-trend.info">covid-trend.info</a>
+                ({{ $t('licensedUnder') }}
+                <a href="https://github.com/techoracle/covid-trend/blob/master/LICENSE">MIT</a>)
+              </td>
+              <td align="right">
+                <router-link :to="{ name: 'about' }"> {{ $t('about') }} </router-link>
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
     </footer>
-
 
   </div>
 </template>

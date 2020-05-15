@@ -12,7 +12,7 @@ function extract(filepath) {
   // HACK: CSVs have different date formats
   const normalDates = dates.map(date => {
     const [month, day] = date.split("/");
-    return `2020-${month}-${day}`;
+    return `2020-${formatDayMonth(month)}-${formatDayMonth(day)}`;
   });
 
   rows.forEach(([UID, iso2, iso3, code3, FIPS, Admin2, province, country, lat, long, combinedKey, ...counts]) => {
@@ -190,6 +190,11 @@ function getSortOrder(property) {
     }
     return 0;
   }
+}
+
+function formatDayMonth(value) {
+  const result = (typeof value === 'undefined')? '00' : value;
+  return (result.length === 1)? '0' + result : result;
 }
 
 module.exports = updateRegions;
