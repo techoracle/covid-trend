@@ -18,7 +18,7 @@
   "feedback": "In het geval van een nieuw idee, beoordeling, positieve of negatieve reactie, geef dan uw feedback ",
   "here": "hier",
   "forecastEndDay": "Verwachte datum zonder nieuwe dagelijkse besmetting",
-  "forecastApproxEndDay": "Verwachte dempingsdatum van de epidemie tot 99,99%",
+  "forecastApproxEndDay": "De verwachte datum om 99,99% van het verwachte totaal aantal besmette gevallen te bereiken",
   "alreadyReached": "reeds bereikt",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Gegevens van Johns Hopkins University",
@@ -31,5 +31,6 @@
   "linkRospotrebnadzor": "Rospotrebnadzor gegevens",
   "globalTitle": "COVID-19: Statistieken en prognoses wereldwijd",
   "usTitle": "COVID-19: Statistieken en prognoses voor Amerikaanse staten en steden",
-  "ruTitle": "COVID-19: Statistieken en prognoses per regio in Rusland"
+  "ruTitle": "COVID-19: Statistieken en prognoses per regio in Rusland",
+  "licensedUnder": "gelicentieerd onder"
 }

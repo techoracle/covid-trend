@@ -18,7 +18,7 @@
   "feedback": "En caso de nueva idea, revisión, respuesta positiva o negativa, por favor proporcione su retroalimentación",
   "here": "aquí",
   "forecastEndDay": "Fecha prevista sin nuevos infectados diarios",
-  "forecastApproxEndDay": "La fecha prevista de atenuación de la epidemia es del 99,99%",
+  "forecastApproxEndDay": "La fecha prevista para alcanzar el 99,99% del total de casos infectados previstos",
   "alreadyReached": "ya alcanzado",
   "links": "*Enlaces",
   "linkJohnsHopkinsUniversity": "Los datos de la Universidad Johns Hopkins",
@@ -31,5 +31,6 @@
   "linkRospotrebnadzor": "Datos de Rospotrebnadzor",
   "globalTitle": "COVID-19: Estadísticas y Pronósticos a nivel mundial",
   "usTitle": "COVID-19: Estadísticas y previsiones para los estados y ciudades de EE.UU.",
-  "ruTitle": "COVID-19: Estadísticas y previsiones por regiones de Rusia"
+  "ruTitle": "COVID-19: Estadísticas y previsiones por regiones de Rusia",
+  "licensedUnder": "licenciado bajo"
 }

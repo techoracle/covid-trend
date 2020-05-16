@@ -20,7 +20,7 @@
         <line-chart
           v-if="loaded"
           :chart-data="confirmed"
-          :chart-labels="labels"
+          :chart-labels="labelsTotal"
           :data-label="labelConfirmed"
         />
       </div>
@@ -30,7 +30,7 @@
         <line-chart
           v-if="loaded"
           :chart-data="newConfirmed"
-          :chart-labels="labels"
+          :chart-labels="labelsDaily"
           :data-label="labelNewConfirmed"
         />
       </div>
@@ -39,7 +39,7 @@
         <line-chart
           v-if="loaded"
           :chart-data="deaths"
-          :chart-labels="labels"
+          :chart-labels="labelsTotal"
           :data-label="labelDeaths"
         />
       </div>
@@ -50,7 +50,7 @@
         <line-chart
           v-if="loaded"
           :chart-data="newDeaths"
-          :chart-labels="labels"
+          :chart-labels="labelsDaily"
           :data-label="labelNewDeaths"
         />
       </div>
@@ -81,7 +81,7 @@
       <h2>{{ $t('forecastTotalInfected') }}</h2>
       <two-lines-chart
         v-if="loadedForecastConfirmed"
-        :chart-labels="labelsVerhulst"
+        :chart-labels="labelsVerhulstTotal"
         :chart-data-first="confirmed"
         :data-label-first="labelConfirmed"
         :chart-data-second="forecastVerhulstConfirmed"
@@ -93,7 +93,7 @@
       <h2>{{ $t('forecastDailyInfected') }}</h2>
       <two-lines-chart
         v-if="loadedForecastConfirmed"
-        :chart-labels="labelsVerhulst"
+        :chart-labels="labelsVerhulstDaily"
         :chart-data-first="newConfirmed"
         :data-label-first="labelNewConfirmed"
         :chart-data-second="forecastVerhulstNewConfirmed"
@@ -105,7 +105,7 @@
       <h2>{{ $t('forecastTotalDeaths') }}</h2>
       <two-lines-chart
         v-if="loadedForecastDeaths"
-        :chart-labels="labelsVerhulst"
+        :chart-labels="labelsVerhulstTotal"
         :chart-data-first="deaths"
         :data-label-first="labelDeaths"
         :chart-data-second="forecastVerhulstDeaths"
@@ -118,7 +118,7 @@
       <h2>{{ $t('forecastDailyDeaths') }}</h2>
       <two-lines-chart
         v-if="loadedForecastDeaths"
-        :chart-labels="labelsVerhulst"
+        :chart-labels="labelsVerhulstDaily"
         :chart-data-first="newDeaths"
         :data-label-first="labelNewDeaths"
         :chart-data-second="forecastVerhulstNewDeaths"
@@ -171,7 +171,8 @@
       isEndDateInPast: false,
       endDate: '',
       errorMessage: '',
-      labels: [],
+      labelsTotal: [],
+      labelsDaily: [],
       forecastLabels: [],
       confirmed: [],
       deaths: [],
@@ -190,7 +191,8 @@
       forecastVerhulstNewConfirmed: [],
       forecastVerhulstDeaths: [],
       forecastVerhulstNewDeaths: [],
-      labelsVerhulst: [],
+      labelsVerhulstTotal: [],
+      labelsVerhulstDaily: [],
       labelConfirmed: 'Infected (total)',
       labelDeaths: 'Deaths (total)',
       labelNewConfirmed: 'Infected (daily)',
@@ -233,7 +235,8 @@
           .then(response => {
             this.confirmed = response.data.map(entry => entry.Confirmed);
             this.deaths = response.data.map(entry => entry.Deaths);
-            this.labels = response.data.map(entry => this.dateToDay(entry.Date));
+            this.labelsTotal = response.data.map(entry => this.dateToDay(entry.Date));
+            this.labelsDaily = this.labelsTotal.slice(-1*(this.labelsTotal.length - 1));
             this.newConfirmed = this.calculateDayDelta(this.confirmed);
             this.newDeaths = this.calculateDayDelta(this.deaths);
             this.loaded = true;
@@ -253,7 +256,8 @@
             this.forecastDataVerhulstConfirmed = createForecastDataVerhulst(this.confirmedSmoothing, this.newConfirmedSmoothing, this.newConfirmed, null);
             this.forecastVerhulstConfirmed = this.forecastDataVerhulstConfirmed.arrayN;
             this.forecastVerhulstNewConfirmed = this.forecastDataVerhulstConfirmed.arrayDN;
-            this.labelsVerhulst = this.labels.slice().concat(this.forecastDataVerhulstConfirmed.labels);
+            this.labelsVerhulstTotal = this.labelsTotal.slice().concat(this.forecastDataVerhulstConfirmed.labels);
+            this.labelsVerhulstDaily = this.labelsVerhulstTotal.slice(-1*(this.labelsVerhulstTotal.length - 1));
             this.showEndDate = this.forecastDataVerhulstConfirmed.showEndDate;
             this.isEndDateInPast = this.forecastDataVerhulstConfirmed.isEndDateInPast;
             this.endDate = this.forecastDataVerhulstConfirmed.endDate;
@@ -291,9 +295,9 @@
         return moment(date).format('YYYY-MM-DD');
       },
       calculateDayDelta(arraySource) {
-        const result = [0];
-        for (let i = 0; i < arraySource.length - 1; i++) {
-          result.push(Math.abs(arraySource[i - 1] - arraySource[i]));
+        const result = [];
+        for (let i = 1; i <= arraySource.length - 1; i++) {
+          result.push(Math.abs( arraySource[i] - arraySource[i - 1] ));
         }
         return result;
       },

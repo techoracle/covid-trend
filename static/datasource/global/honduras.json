@@ -658,5 +658,35 @@
     "Confirmed": 1972,
     "Deaths": 108,
     "Recovered": 203
+  },
+  {
+    "Date": "2020-05-11",
+    "Confirmed": 2100,
+    "Deaths": 116,
+    "Recovered": 206
+  },
+  {
+    "Date": "2020-05-12",
+    "Confirmed": 2080,
+    "Deaths": 121,
+    "Recovered": 211
+  },
+  {
+    "Date": "2020-05-13",
+    "Confirmed": 2255,
+    "Deaths": 123,
+    "Recovered": 237
+  },
+  {
+    "Date": "2020-05-14",
+    "Confirmed": 2318,
+    "Deaths": 133,
+    "Recovered": 253
+  },
+  {
+    "Date": "2020-05-15",
+    "Confirmed": 2460,
+    "Deaths": 134,
+    "Recovered": 264
   }
 ]

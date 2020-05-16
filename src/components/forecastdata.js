@@ -64,7 +64,7 @@ function createForecastDataVerhulst(functionValuesN, functionValuesDN, realDN, w
 
 function generateDateLabels(amount) {
   const result = [];
-  for (let i = 1; i <= amount; i++) {
+  for (let i = 0; i <= amount - 1; i++) {
     result.push(moment().add(i, 'days').format('YYYY-MM-DD'));
   }
   return result;
