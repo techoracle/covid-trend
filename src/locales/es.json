@@ -3,6 +3,7 @@
   "titleDescription": "(basado en los datos de la Universidad Johns Hopkins* y el modelo de crecimiento demográfico de Verhulst*)",
   "infectedTotal": "Infectados (total)",
   "infectedDaily":"Infectados (a diario)",
+  "infectedAccelerator":"Aceleración del crecimiento de la infección",
   "deathsTotal":"Muertes (total)",
   "deathsDaily":"Muertes (diarias)",
   "forecast":"Pronóstico",

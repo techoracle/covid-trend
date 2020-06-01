@@ -3,6 +3,7 @@
   "titleDescription": "(gebaseerd op gegevens van de Johns Hopkins University* en het Verhulst bevolkingsgroeimodel*)",
   "infectedTotal": "Geïnfecteerd (totaal)",
   "infectedDaily":"Geïnfecteerd (dagelijks)",
+  "infectedAccelerator":"Versnelling van de infectiegroei",
   "deathsTotal":"Doden (totaal)",
   "deathsDaily":"Doden (dagelijks)",
   "forecast":"Prognose",

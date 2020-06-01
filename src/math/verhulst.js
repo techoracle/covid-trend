@@ -41,11 +41,13 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   const lastX = functionValuesN.length - 1;
   const lastN = functionValuesN[functionValuesN.length - 1];
 
-  // let's try to estimate value of maximal infected people M
+  // Let's try to estimate value of maximal infected people M.
+  // It is just first estimation.
+  // Further M will be approximated again
   if (isMax) {
     M = functionValuesN[maxX] * 2;
     console.log('evaluateVerhulst() doubled M = ' + M + ', lastN = ' + lastN);
-    if (M < lastN) {
+    if (M < lastN) { // N already greater than M => M was wrong estimated => estimate M again
       M = Math.round(lastN * 1.3);
       console.log('evaluateVerhulst() corrected M = ' + M + ', lastN = ' + lastN);
     }
@@ -53,10 +55,11 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
     // estimated value (done through many european countries): 0.25% of population will be in infected statistics
     M = Math.round(wholePopulation * 0.0025);
   } else {
+    // let's estimate M as proportion of offset to the top of epidemic
     const distanceToStart = lastX - startIndex;
-    const middleEpedemyTimeToExtrem = 30;
-    let factorToTop = distanceToStart / middleEpedemyTimeToExtrem;
-    factorToTop = (factorToTop > 1.0)? factorToTop = 0.9 : factorToTop;
+    const middleEpidemicTimeToTop = 30; // approximately there are 30 days needed to reach the epidemic top
+    let factorToTop = distanceToStart / middleEpidemicTimeToTop;
+    factorToTop = (factorToTop > 1.0)? 0.9 : factorToTop;
     M = Math.round(functionValuesN[functionValuesN.length - 1] / factorToTop) * 2;
   }
   console.log('evaluateVerhulst() M = ' + M);
@@ -268,7 +271,7 @@ function getLinearParams(points) {
   const lastY = points[points.length - 1];
   const previousY = points[points.length - 2];
 
-  const calculatedInterpolating = evaluateLinearRegression(arrayForecast, arrayX, arrayY);
+  const calculatedInterpolating = evaluateLinearRegression(arrayForecast, arrayX, arrayY, false);
   const arrayForecastCalculated = calculatedInterpolating.arrayY;
   result['slope'] = calculatedInterpolating.slope;
   result['nextY'] = arrayForecastCalculated[0];

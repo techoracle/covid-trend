@@ -3,6 +3,7 @@
   "titleDescription": "(根据约翰-霍普金斯大学的数据和Verhulst人口增长模型的数据)",
   "infectedTotal": "感染者（总数）",
   "infectedDaily":"感染（每日）",
+  "infectedAccelerator":"加速感染增长",
   "deathsTotal":"死亡人数（总数）",
   "deathsDaily":"死亡人数（每日）",
   "forecast":"预测",

@@ -21,26 +21,41 @@
           v-if="loaded"
           :chart-data="confirmed"
           :chart-labels="labelsTotal"
-          :data-label="labelConfirmed"
+          :data-label="$t('infectedTotal')"
         />
       </div>
 
-      <div class="Chart">
-        <h2>{{ $t('infectedDaily') }}</h2>
-        <line-chart
-          v-if="loaded"
-          :chart-data="newConfirmed"
-          :chart-labels="labelsDaily"
-          :data-label="labelNewConfirmed"
-        />
-      </div>
-      <div class="Chart">
+    <div class="Chart">
+      <h2>{{ $t('infectedDaily') }}</h2>
+      <two-lines-chart
+        v-if="loaded"
+        :chart-labels="labelsDaily"
+        :chart-data-first="newConfirmed"
+        :data-label-first="$t('infectedDaily')"
+        :chart-data-second="newConfirmedSmoothing"
+        :data-label-second="$t('averageValue')"
+      />
+    </div>
+
+    <div class="Chart">
+      <h2>{{ $t('infectedAccelerator') }}</h2>
+      <two-lines-chart
+        v-if="loaded"
+        :chart-labels="labelsAccelerator"
+        :chart-data-first="acceleratorConfirmed"
+        :data-label-first="$t('infectedAccelerator')"
+        :chart-data-second="acceleratorConfirmedSmoothing"
+        :data-label-second="$t('averageValue')"
+      />
+    </div>
+
+    <div class="Chart">
         <h2>{{ $t('deathsTotal') }}</h2>
         <line-chart
           v-if="loaded"
           :chart-data="deaths"
           :chart-labels="labelsTotal"
-          :data-label="labelDeaths"
+          :data-label="$t('deathsTotal')"
         />
       </div>
 
@@ -51,7 +66,7 @@
           v-if="loaded"
           :chart-data="newDeaths"
           :chart-labels="labelsDaily"
-          :data-label="labelNewDeaths"
+          :data-label="$t('deathsDaily')"
         />
       </div>
 
@@ -83,9 +98,9 @@
         v-if="loadedForecastConfirmed"
         :chart-labels="labelsVerhulstTotal"
         :chart-data-first="confirmed"
-        :data-label-first="labelConfirmed"
+        :data-label-first="$t('infectedTotal')"
         :chart-data-second="forecastVerhulstConfirmed"
-        :data-label-second="labelForecast"
+        :data-label-second="$t('forecastTotalInfected')"
       />
     </div>
 
@@ -95,9 +110,9 @@
         v-if="loadedForecastConfirmed"
         :chart-labels="labelsVerhulstDaily"
         :chart-data-first="newConfirmed"
-        :data-label-first="labelNewConfirmed"
+        :data-label-first="$t('infectedDaily')"
         :chart-data-second="forecastVerhulstNewConfirmed"
-        :data-label-second="labelForecast"
+        :data-label-second="$t('forecastDailyInfected')"
       />
     </div>
 
@@ -107,9 +122,9 @@
         v-if="loadedForecastDeaths"
         :chart-labels="labelsVerhulstTotal"
         :chart-data-first="deaths"
-        :data-label-first="labelDeaths"
+        :data-label-first="$t('deathsTotal')"
         :chart-data-second="forecastVerhulstDeaths"
-        :data-label-second="labelForecast"
+        :data-label-second="$t('forecastTotalDeaths')"
       />
     </div>
 
@@ -137,7 +152,7 @@
   import moment from 'moment';
   import {createForecastData, createForecastDataVerhulst} from './forecastdata';
   import getCountries, { preselectedCountry } from '@/assets/countries';
-  import doubleSmoothing from '@/math/smoothing';
+  import {doubleSmoothing, smoothing} from '@/math/smoothing';
 
 
   export default {
@@ -173,13 +188,16 @@
       errorMessage: '',
       labelsTotal: [],
       labelsDaily: [],
+      labelsAccelerator: [],
       forecastLabels: [],
       confirmed: [],
       deaths: [],
       newConfirmed: [],
+      acceleratorConfirmed: [],
       newDeaths: [],
       confirmedSmoothing: [],
       newConfirmedSmoothing: [],
+      acceleratorConfirmedSmoothing: [],
       deathsSmoothing: [],
       newDeathsSmoothing: [],
       forecastData: null,
@@ -196,6 +214,7 @@
       labelConfirmed: 'Infected (total)',
       labelDeaths: 'Deaths (total)',
       labelNewConfirmed: 'Infected (daily)',
+      labelAcceleratorConfirmed: 'Infected (accelerator)',
       labelNewDeaths: 'Deaths (daily)',
       labelForecast: 'Forecast',
       countries: null,
@@ -237,21 +256,27 @@
             this.deaths = response.data.map(entry => entry.Deaths);
             this.labelsTotal = response.data.map(entry => this.dateToDay(entry.Date));
             this.labelsDaily = this.labelsTotal.slice(-1*(this.labelsTotal.length - 1));
-            this.newConfirmed = this.calculateDayDelta(this.confirmed);
-            this.newDeaths = this.calculateDayDelta(this.deaths);
+            this.labelsAccelerator = this.labelsDaily.slice(-1*(this.labelsDaily.length - 1));
+            this.newConfirmed = this.calculateDayDelta(this.confirmed, false);
+            this.newDeaths = this.calculateDayDelta(this.deaths, false);
+
+
+            /*
+                        this.forecastData = createForecastData(this.newConfirmed, 30, 'linear');
+                        this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
+                        this.forecastLabels = this.forecastData.labels;
+                        this.showEndDate = this.forecastData.showEndDate;
+                        this.isEndDateInPast = this.forecastData.isEndDateInPast;
+                        this.endDate = this.forecastData.endDate;
+            */
+
+            this.confirmedSmoothing = doubleSmoothing(this.confirmed, false);
+            this.newConfirmedSmoothing = doubleSmoothing(this.newConfirmed, false);
+            this.deathsSmoothing = doubleSmoothing(this.deaths, false);
+            this.newDeathsSmoothing = doubleSmoothing(this.newDeaths, false);
+            this.acceleratorConfirmed = this.calculateDayDelta(this.newConfirmedSmoothing, true);
+            this.acceleratorConfirmedSmoothing = doubleSmoothing(this.acceleratorConfirmed, true);
             this.loaded = true;
-/*
-            this.forecastData = createForecastData(this.newConfirmed, 30, 'linear');
-            this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
-            this.forecastLabels = this.forecastData.labels;
-            this.showEndDate = this.forecastData.showEndDate;
-            this.isEndDateInPast = this.forecastData.isEndDateInPast;
-            this.endDate = this.forecastData.endDate;
-*/
-            this.newConfirmedSmoothing = doubleSmoothing(this.newConfirmed);
-            this.confirmedSmoothing = doubleSmoothing(this.confirmed);
-            this.deathsSmoothing = doubleSmoothing(this.deaths);
-            this.newDeathsSmoothing = doubleSmoothing(this.newDeaths);
 
             this.forecastDataVerhulstConfirmed = createForecastDataVerhulst(this.confirmedSmoothing, this.newConfirmedSmoothing, this.newConfirmed, null);
             this.forecastVerhulstConfirmed = this.forecastDataVerhulstConfirmed.arrayN;
@@ -294,10 +319,11 @@
       dateToDay(date) {
         return moment(date).format('YYYY-MM-DD');
       },
-      calculateDayDelta(arraySource) {
+      calculateDayDelta(arraySource, withNegative) {
         const result = [];
         for (let i = 1; i <= arraySource.length - 1; i++) {
-          result.push(Math.abs( arraySource[i] - arraySource[i - 1] ));
+          let delta = arraySource[i] - arraySource[i - 1];
+          result.push(withNegative? delta : Math.abs( delta ));
         }
         return result;
       },

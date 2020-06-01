@@ -3,6 +3,7 @@
   "titleDescription": "(ジョンズ・ホプキンス大学とVerhulstの人口増加モデルのデータに基づく)",
   "infectedTotal": "感染している(全体)",
   "infectedDaily":"感染している（毎日)",
+  "infectedAccelerator":"感染拡大の加速",
   "deathsTotal":"死亡者数（合計)",
   "deathsDaily":"死亡者数（毎日)",
   "forecast":"予想",

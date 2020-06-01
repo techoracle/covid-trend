@@ -301,8 +301,8 @@
   },
   {
     "Date": "2020-03-12",
-    "Confirmed": 12462,
-    "Deaths": 827,
+    "Confirmed": 15113,
+    "Deaths": 1016,
     "Recovered": 1045
   },
   {
@@ -688,5 +688,101 @@
     "Confirmed": 223885,
     "Deaths": 31610,
     "Recovered": 120205
+  },
+  {
+    "Date": "2020-05-16",
+    "Confirmed": 224760,
+    "Deaths": 31763,
+    "Recovered": 122810
+  },
+  {
+    "Date": "2020-05-17",
+    "Confirmed": 225435,
+    "Deaths": 31908,
+    "Recovered": 125176
+  },
+  {
+    "Date": "2020-05-18",
+    "Confirmed": 225886,
+    "Deaths": 32007,
+    "Recovered": 127326
+  },
+  {
+    "Date": "2020-05-19",
+    "Confirmed": 226699,
+    "Deaths": 32169,
+    "Recovered": 129401
+  },
+  {
+    "Date": "2020-05-20",
+    "Confirmed": 227364,
+    "Deaths": 32330,
+    "Recovered": 132282
+  },
+  {
+    "Date": "2020-05-21",
+    "Confirmed": 228006,
+    "Deaths": 32486,
+    "Recovered": 134560
+  },
+  {
+    "Date": "2020-05-22",
+    "Confirmed": 228658,
+    "Deaths": 32616,
+    "Recovered": 136720
+  },
+  {
+    "Date": "2020-05-23",
+    "Confirmed": 229327,
+    "Deaths": 32735,
+    "Recovered": 138840
+  },
+  {
+    "Date": "2020-05-24",
+    "Confirmed": 229858,
+    "Deaths": 32785,
+    "Recovered": 140479
+  },
+  {
+    "Date": "2020-05-25",
+    "Confirmed": 230158,
+    "Deaths": 32877,
+    "Recovered": 141981
+  },
+  {
+    "Date": "2020-05-26",
+    "Confirmed": 230555,
+    "Deaths": 32955,
+    "Recovered": 144658
+  },
+  {
+    "Date": "2020-05-27",
+    "Confirmed": 231139,
+    "Deaths": 33072,
+    "Recovered": 147101
+  },
+  {
+    "Date": "2020-05-28",
+    "Confirmed": 231732,
+    "Deaths": 33142,
+    "Recovered": 150604
+  },
+  {
+    "Date": "2020-05-29",
+    "Confirmed": 232248,
+    "Deaths": 33229,
+    "Recovered": 152844
+  },
+  {
+    "Date": "2020-05-30",
+    "Confirmed": 232664,
+    "Deaths": 33340,
+    "Recovered": 155633
+  },
+  {
+    "Date": "2020-05-31",
+    "Confirmed": 232997,
+    "Deaths": 33415,
+    "Recovered": 157507
   }
 ]

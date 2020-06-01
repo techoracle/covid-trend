@@ -99,9 +99,10 @@ function findIntervalBorderIndex(point, intervals, useRightBorder) {
  *                                            for which linear interpolation is calculated
  * @param {Array} functionValuesX             set of distinct x values
  * @param {Array} functionValuesY             set of distinct y=f(x) values
+ * @param {boolean} withNegative              accept negative values in result
  * @returns {Object}                          result of linear interpolation
  */
-function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionValuesY) {
+function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionValuesY, withNegative) {
   let result = {};
   const arrayY = [];
   const linearReg = linearRegression(functionValuesX, functionValuesY);
@@ -112,7 +113,7 @@ function evaluateLinearRegression(pointsToEvaluate, functionValuesX, functionVal
   pointsToEvaluate = makeItArrayIfItsNot(pointsToEvaluate);
   pointsToEvaluate.forEach(function (pointX) {
       let pointY = Math.round(slope * pointX + intercept);
-      pointY = pointY >= 0 ? pointY : 0;
+      if (!withNegative) pointY = pointY >= 0 ? pointY : 0;
       if (!reached0) arrayY.push(pointY);
       if (pointY === 0) reached0 = true;
     }

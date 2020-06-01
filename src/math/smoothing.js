@@ -1,15 +1,17 @@
 import evaluateLinearRegression from './linear';
+import {createSimpleArrayX} from './function-analyzer';
 
-export default doubleSmoothing;
 
-function doubleSmoothing(arrayY) {
-  return smoothing(smoothing(arrayY));
+export {doubleSmoothing, smoothing};
+
+function doubleSmoothing(arrayY, withNegative) {
+  return smoothing(smoothing(arrayY, withNegative), withNegative);
 }
 
-function smoothing(arrayY) {
+function smoothing(arrayY, withNegative) {
   let result = [];
   const offset = 3;
-  const arrayX = createSimpleArrayX(offset * 2 + 1, 0);
+  const arrayX = createSimpleArrayX(0, offset * 2 + 1);
 
   // copy everything before offset into result
   for (let i = 0; i < offset; i++) {
@@ -19,7 +21,7 @@ function smoothing(arrayY) {
   // smoothing
   for (let i = offset; i < arrayY.length - offset; i++) {
     let analyzeArrayY =arrayY.slice(i - offset, i + offset + 1);
-    let calculatedInterpolating = evaluateLinearRegression(offset, arrayX, analyzeArrayY);
+    let calculatedInterpolating = evaluateLinearRegression(offset, arrayX, analyzeArrayY, withNegative);
     const arrayCalculated = calculatedInterpolating.arrayY;
     result.push(arrayCalculated[0]);
   }
@@ -29,18 +31,10 @@ function smoothing(arrayY) {
     let toEnd = arrayY.length - 1 - i;
     let additionalOffset = offset - toEnd;
     let analyzeArrayY =arrayY.slice(i - offset - additionalOffset, arrayY.length);
-    let calculatedInterpolating = evaluateLinearRegression(offset + additionalOffset, arrayX, analyzeArrayY);
+    let calculatedInterpolating = evaluateLinearRegression(offset + additionalOffset, arrayX, analyzeArrayY, withNegative);
     const arrayCalculated = calculatedInterpolating.arrayY;
     result.push(arrayCalculated[0]);
   }
 
-  return result;
-}
-
-function createSimpleArrayX(amount, firstvalue) {
-  const result = [];
-  for (let i = 0; i < amount; i++) {
-    result.push(i + firstvalue);
-  }
   return result;
 }
