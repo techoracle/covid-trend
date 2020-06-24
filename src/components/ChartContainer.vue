@@ -3,27 +3,29 @@
 
     <select class="custom-select d-block w-100" v-model="selectedCountry" @change="requestData">
       <option v-for="country in countries" v-bind:value="country.Slug"
-              :selected="country.Country == 'Germany'" >{{ country.Country }}</option>
+              :selected="country.Country == 'Germany'">{{ country.Country }}
+      </option>
     </select>
 
     <div v-if="showEndDate" class="table-responsive withOffsetTop">
       <table class="table table-striped table-sm">
         <tr>
           <td class="leftAlign goodNewsBg">{{ $t('forecastApproxEndDay') }}</td>
-          <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b><b v-if="isEndDateInPast">{{ $t('alreadyReached') }} </b></td>
+          <td class="rightAlign goodNewsBg"><b>{{ endDate }}</b><b v-if="isEndDateInPast">{{ $t('alreadyReached')
+            }} </b></td>
         </tr>
       </table>
     </div>
 
     <div class="Chart">
-        <h2>{{ $t('infectedTotal') }}</h2>
-        <line-chart
-          v-if="loaded"
-          :chart-data="confirmed"
-          :chart-labels="labelsTotal"
-          :data-label="$t('infectedTotal')"
-        />
-      </div>
+      <h2>{{ $t('infectedTotal') }}</h2>
+      <line-chart
+        v-if="loaded"
+        :chart-data="confirmed"
+        :chart-labels="labelsTotal"
+        :data-label="$t('infectedTotal')"
+      />
+    </div>
 
     <div class="Chart">
       <h2>{{ $t('infectedDaily') }}</h2>
@@ -50,25 +52,29 @@
     </div>
 
     <div class="Chart">
-        <h2>{{ $t('deathsTotal') }}</h2>
-        <line-chart
-          v-if="loaded"
-          :chart-data="deaths"
-          :chart-labels="labelsTotal"
-          :data-label="$t('deathsTotal')"
-        />
-      </div>
+      <h2>{{ $t('deathsTotal') }}</h2>
+      <two-lines-chart
+        v-if="loaded"
+        :chart-labels="labelsTotal"
+        :chart-data-first="deaths"
+        :data-label-first="$t('deathsTotal')"
+        :chart-data-second="deathsSmoothing"
+        :data-label-second="$t('averageValue')"
+      />
+    </div>
 
 
-      <div class="Chart">
-        <h2>{{ $t('deathsDaily') }}</h2>
-        <line-chart
-          v-if="loaded"
-          :chart-data="newDeaths"
-          :chart-labels="labelsDaily"
-          :data-label="$t('deathsDaily')"
-        />
-      </div>
+    <div class="Chart">
+      <h2>{{ $t('deathsDaily') }}</h2>
+      <two-lines-chart
+        v-if="loaded"
+        :chart-labels="labelsDaily"
+        :chart-data-first="newDeaths"
+        :data-label-first="$t('deathsDaily')"
+        :chart-data-second="newDeathsSmoothing"
+        :data-label-second="$t('averageValue')"
+      />
+    </div>
 
 
     <!--
@@ -104,6 +110,7 @@
       />
     </div>
 
+    <!--
     <div class="Chart">
       <h2>{{ $t('forecastDailyInfected') }}</h2>
       <two-lines-chart
@@ -115,6 +122,7 @@
         :data-label-second="$t('forecastDailyInfected')"
       />
     </div>
+    -->
 
     <div class="Chart">
       <h2>{{ $t('forecastTotalDeaths') }}</h2>
@@ -151,7 +159,7 @@
   import axios from 'axios';
   import moment from 'moment';
   import {createForecastData, createForecastDataVerhulst} from './forecastdata';
-  import getCountries, { preselectedCountry } from '@/assets/countries';
+  import getCountries, {preselectedCountry} from '@/assets/countries';
   import {doubleSmoothing, smoothing} from '@/math/smoothing';
 
 
@@ -255,20 +263,20 @@
             this.confirmed = response.data.map(entry => entry.Confirmed);
             this.deaths = response.data.map(entry => entry.Deaths);
             this.labelsTotal = response.data.map(entry => this.dateToDay(entry.Date));
-            this.labelsDaily = this.labelsTotal.slice(-1*(this.labelsTotal.length - 1));
-            this.labelsAccelerator = this.labelsDaily.slice(-1*(this.labelsDaily.length - 1));
+            this.labelsDaily = this.labelsTotal.slice(-1 * (this.labelsTotal.length - 1));
+            this.labelsAccelerator = this.labelsDaily.slice(-1 * (this.labelsDaily.length - 1));
             this.newConfirmed = this.calculateDayDelta(this.confirmed, false);
             this.newDeaths = this.calculateDayDelta(this.deaths, false);
 
 
             /*
-                        this.forecastData = createForecastData(this.newConfirmed, 30, 'linear');
-                        this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
-                        this.forecastLabels = this.forecastData.labels;
-                        this.showEndDate = this.forecastData.showEndDate;
-                        this.isEndDateInPast = this.forecastData.isEndDateInPast;
-                        this.endDate = this.forecastData.endDate;
-            */
+             this.forecastData = createForecastData(this.newConfirmed, 30, 'linear');
+             this.forecastNewConfirmed = this.forecastData.arrayForecastCalculated;
+             this.forecastLabels = this.forecastData.labels;
+             this.showEndDate = this.forecastData.showEndDate;
+             this.isEndDateInPast = this.forecastData.isEndDateInPast;
+             this.endDate = this.forecastData.endDate;
+             */
 
             this.confirmedSmoothing = doubleSmoothing(this.confirmed, false);
             this.newConfirmedSmoothing = doubleSmoothing(this.newConfirmed, false);
@@ -282,7 +290,7 @@
             this.forecastVerhulstConfirmed = this.forecastDataVerhulstConfirmed.arrayN;
             this.forecastVerhulstNewConfirmed = this.forecastDataVerhulstConfirmed.arrayDN;
             this.labelsVerhulstTotal = this.labelsTotal.slice().concat(this.forecastDataVerhulstConfirmed.labels);
-            this.labelsVerhulstDaily = this.labelsVerhulstTotal.slice(-1*(this.labelsVerhulstTotal.length - 1));
+            this.labelsVerhulstDaily = this.labelsVerhulstTotal.slice(-1 * (this.labelsVerhulstTotal.length - 1));
             this.showEndDate = this.forecastDataVerhulstConfirmed.showEndDate;
             this.isEndDateInPast = this.forecastDataVerhulstConfirmed.isEndDateInPast;
             this.endDate = this.forecastDataVerhulstConfirmed.endDate;
@@ -323,7 +331,7 @@
         const result = [];
         for (let i = 1; i <= arraySource.length - 1; i++) {
           let delta = arraySource[i] - arraySource[i - 1];
-          result.push(withNegative? delta : Math.abs( delta ));
+          result.push(withNegative ? delta : Math.abs(delta));
         }
         return result;
       },
@@ -337,7 +345,7 @@
       getJsonFile (index) {
 
         this.currentJsonFile = async () => {
-          const runtimeConfig = await fetch('/' + index );
+          const runtimeConfig = await fetch('/' + index);
           console.log('runtimeConfig: ' + runtimeConfig);
           return await runtimeConfig.json();
         };
@@ -347,10 +355,10 @@
     },
     computed: {
       selectedCountry: {
-        get: function() {
+        get: function () {
           return this.preselectedItem;
         },
-        set: function(newVal) {
+        set: function (newVal) {
           this.$store.dispatch(this.storeChange, newVal);
           this.preselectedItem = newVal;
         }

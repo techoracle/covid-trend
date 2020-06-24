@@ -19,7 +19,7 @@
   "feedback": "In caso di nuove idee, recensioni, risposte positive o negative, si prega di fornire il vostro feedback",
   "here": "qui",
   "forecastEndDay": "Data prevista senza nuovi contagi giornalieri",
-  "forecastApproxEndDay": "La data prevista per raggiungere il 99,99% dei casi infetti totali previsti",
+  "forecastApproxEndDay": "La data prevista per raggiungere il 97% dei casi infetti totali previsti",
   "alreadyReached": "già raggiunto",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Dati della Johns Hopkins University",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19: Statistiche e previsioni in tutto il mondo",
   "usTitle": "COVID-19: Statistiche e previsioni per gli stati e le città degli Stati Uniti",
   "ruTitle": "COVID-19: Statistiche e previsioni per regioni della Russia",
-  "licensedUnder": "licenza ai sensi di"
+  "licensedUnder": "licenza ai sensi di",
+  "explainAccelaration": "L'accelerazione descrive una variazione del tasso di aumento o di diminuzione delle persone infette quotidianamente. Se l'accelerazione è positiva, l'epidemia \"preme il pedale dell'acceleratore\", negativa, \"l'epidemia preme il freno\""
 }

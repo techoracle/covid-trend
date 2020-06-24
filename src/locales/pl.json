@@ -19,7 +19,7 @@
   "feedback": "W przypadku nowego pomysłu, recenzji, pozytywnej lub negatywnej odpowiedzi prosimy o przedstawienie swojej opinii.",
   "here": "Tutaj",
   "forecastEndDay": "Przewidywany termin bez nowych codziennych infekcji",
-  "forecastApproxEndDay": "Spodziewany termin osiągnięcia 99,99% ogółu prognozowanych zakażonych przypadków",
+  "forecastApproxEndDay": "Spodziewany termin osiągnięcia 97% ogółu prognozowanych zakażonych przypadków",
   "alreadyReached": "osiągany już",
   "links": "*Linki",
   "linkJohnsHopkinsUniversity": "Dane Uniwersytetu Johnsa Hopkinsa",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19: Statystyka i prognozy na świecie",
   "usTitle": "COVID-19: Statystyki i prognozy dla stanów i miast USA",
   "ruTitle": "COVID-19: Statystyki i prognozy według regionów Rosji",
-  "licensedUnder": "zarejestrowany w ramach"
+  "licensedUnder": "zarejestrowany w ramach",
+  "explainAccelaration": "Przyspieszenie opisuje zmianę tempa wzrostu lub spadku liczby codziennie zakażonych osób. Jeśli przyspieszenie jest dodatnie, epidemia \"wciska pedał gazu\", ujemne, \"epidemia wciska hamulec\""
 }

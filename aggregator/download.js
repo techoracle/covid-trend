@@ -1,6 +1,6 @@
 'use strict';
 
-const { jhuFilenames, jhuUrl, ruFilenames, ruUrl } = require('./datasource');
+const { jhuFilenames, jhuUrl, ruFilenames, ruUrl, jhuDailyUrl, jhuInitialLoadDailyFilenames } = require('./datasource');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -30,6 +30,10 @@ jhuFilenames.forEach(filename => {
 
 ruFilenames.forEach(filename => {
     download( ruUrl + filename, '../static/csv', filename );
+});
+
+jhuInitialLoadDailyFilenames.forEach(filename => {
+  download( jhuDailyUrl + filename, '../static/csv/daily', filename );
 });
 
 module.exports = download;

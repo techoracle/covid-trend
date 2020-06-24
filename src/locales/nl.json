@@ -19,7 +19,7 @@
   "feedback": "In het geval van een nieuw idee, beoordeling, positieve of negatieve reactie, geef dan uw feedback ",
   "here": "hier",
   "forecastEndDay": "Verwachte datum zonder nieuwe dagelijkse besmetting",
-  "forecastApproxEndDay": "De verwachte datum om 99,99% van het verwachte totaal aantal besmette gevallen te bereiken",
+  "forecastApproxEndDay": "De verwachte datum om 97% van het verwachte totaal aantal besmette gevallen te bereiken",
   "alreadyReached": "reeds bereikt",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Gegevens van Johns Hopkins University",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19: Statistieken en prognoses wereldwijd",
   "usTitle": "COVID-19: Statistieken en prognoses voor Amerikaanse staten en steden",
   "ruTitle": "COVID-19: Statistieken en prognoses per regio in Rusland",
-  "licensedUnder": "gelicentieerd onder"
+  "licensedUnder": "gelicentieerd onder",
+  "explainAccelaration": "Acceleratie beschrijft een verandering in de snelheid van toename of afname van het aantal dagelijks geïnfecteerde personen. Als de versnelling positief is, drukt de epidemie \"het gaspedaal in\", negatief, \"de epidemie drukt op de rem\""
 }

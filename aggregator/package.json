@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "csv-parse": "^4.8.8"
+    "csv-parse": "^4.8.8",
+    "moment": "^2.24.0"
   }
 }

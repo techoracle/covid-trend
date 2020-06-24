@@ -92,7 +92,7 @@ function evaluateVerhulst(functionValuesN, functionValuesDN, realDN, wholePopula
   M = approximateM(rLast, N, M, nextExpectedY, linearCoeff);
   console.log('evaluateVerhulst() approximated M = ' + M + '; N = ' + N + '; nextExpectedY = ' + nextExpectedY + '; linearSlope = ' + linearSlope);
 
-  const COEFF_OF_PANDEMY_END = 0.9999;
+  const COEFF_OF_PANDEMY_END = 0.97;
   // let's calculate Verhulst forecast
   console.log('evaluateVerhulst() dN = ' + dN + '; N = ' + N + '; amount = ' + amount);
   let offsetToEnd = 0.0;

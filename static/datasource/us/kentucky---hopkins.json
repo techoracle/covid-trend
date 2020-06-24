@@ -784,5 +784,71 @@
     "Confirmed": 221,
     "Deaths": 30,
     "Recovered": 30
+  },
+  {
+    "Date": "2020-06-01",
+    "Confirmed": 222,
+    "Deaths": 30,
+    "Recovered": 30
+  },
+  {
+    "Date": "2020-06-02",
+    "Confirmed": 222,
+    "Deaths": 30,
+    "Recovered": 30
+  },
+  {
+    "Date": "2020-06-03",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-04",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-05",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-06",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-07",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-08",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-09",
+    "Confirmed": 224,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-10",
+    "Confirmed": 225,
+    "Deaths": 31,
+    "Recovered": 31
+  },
+  {
+    "Date": "2020-06-11",
+    "Confirmed": 225,
+    "Deaths": 31,
+    "Recovered": 31
   }
 ]

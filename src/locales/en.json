@@ -20,7 +20,7 @@
   "feedback": "In case of new idea, review, positive or negative response please provide your feedback",
   "here": "here",
   "forecastEndDay": "Expected date without new daily infected",
-  "forecastApproxEndDay": "The expected date to reach 99.99% of the forecasted total infected cases",
+  "forecastApproxEndDay": "The expected date to reach 97% of the forecasted total infected cases",
   "alreadyReached": "already reached",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Data of Johns Hopkins University",
@@ -35,5 +35,6 @@
   "globalTitle": "COVID-19: worldwide statistics and forecasts",
   "usTitle": "COVID-19: Statistics and forecasts for US states and cities",
   "ruTitle": "COVID-19: Statistics and forecast by regions of Russia",
-  "licensedUnder": "licensed under"
+  "licensedUnder": "licensed under",
+  "explainAccelaration": "Acceleration describes a change in the rate of increase or decrease in daily infected persons. If the acceleration is positive, the epidemic \"presses the gas pedal\", negative, \"the epidemic presses the brake\""
 }

@@ -20,7 +20,7 @@
   "feedback": "Falls Sie eine positive oder negative Antwort hinterlassen möchten, bitte wenden Sie sich an ",
   "here": "diese Adresse",
   "forecastEndDay": "Erwartetes Datum ohne neue täglich Infizierte",
-  "forecastApproxEndDay": "Das erwartete Datum der Erreichung 99,99% der gesamten, infizierten Fälle",
+  "forecastApproxEndDay": "Das erwartete Datum der Erreichung 97% der gesamten, infizierten Fälle",
   "alreadyReached": "schon erreicht",
   "links": "*Links",
   "linkJohnsHopkinsUniversity": "Daten von Johns Hopkins Universität",
@@ -34,5 +34,6 @@
   "globalTitle": "COVID-19: Statistiken und Vorhersagen weltweit",
   "usTitle": "COVID-19: Statistiken und Prognosen für US-Bundesstaaten und -Städte",
   "ruTitle": "COVID-19: Statistiken und Prognosen nach Regionen Russlands",
-  "licensedUnder": "lizensiert unter"
+  "licensedUnder": "lizensiert unter",
+  "explainAccelaration": "Beschleunigung beschreibt eine Veränderung der Zu- oder Abnahmerate bei täglich infizierten Personen. Ist die Beschleunigung positiv, \"drückt die Epidemie das Gaspedal\", negativ, \"die Epidemie drückt die Bremse\""
 }

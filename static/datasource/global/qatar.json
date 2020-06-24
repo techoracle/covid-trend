@@ -784,5 +784,71 @@
     "Confirmed": 56910,
     "Deaths": 38,
     "Recovered": 30290
+  },
+  {
+    "Date": "2020-06-01",
+    "Confirmed": 58433,
+    "Deaths": 40,
+    "Recovered": 33437
+  },
+  {
+    "Date": "2020-06-02",
+    "Confirmed": 60259,
+    "Deaths": 43,
+    "Recovered": 36036
+  },
+  {
+    "Date": "2020-06-03",
+    "Confirmed": 62160,
+    "Deaths": 45,
+    "Recovered": 37542
+  },
+  {
+    "Date": "2020-06-04",
+    "Confirmed": 63741,
+    "Deaths": 45,
+    "Recovered": 39468
+  },
+  {
+    "Date": "2020-06-05",
+    "Confirmed": 65495,
+    "Deaths": 49,
+    "Recovered": 40935
+  },
+  {
+    "Date": "2020-06-06",
+    "Confirmed": 67195,
+    "Deaths": 51,
+    "Recovered": 42527
+  },
+  {
+    "Date": "2020-06-07",
+    "Confirmed": 68790,
+    "Deaths": 54,
+    "Recovered": 44338
+  },
+  {
+    "Date": "2020-06-08",
+    "Confirmed": 70158,
+    "Deaths": 57,
+    "Recovered": 45935
+  },
+  {
+    "Date": "2020-06-09",
+    "Confirmed": 71879,
+    "Deaths": 62,
+    "Recovered": 47569
+  },
+  {
+    "Date": "2020-06-10",
+    "Confirmed": 73595,
+    "Deaths": 66,
+    "Recovered": 49413
+  },
+  {
+    "Date": "2020-06-11",
+    "Confirmed": 75071,
+    "Deaths": 69,
+    "Recovered": 51331
   }
 ]

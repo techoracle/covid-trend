@@ -19,7 +19,7 @@
   "feedback": "Em caso de nova ideia, revisão, resposta positiva ou negativa, por favor forneça o seu feedback",
   "here": "aqui",
   "forecastEndDay": "Data prevista sem novas infecções diárias",
-  "forecastApproxEndDay": "A data prevista para atingir 99,99% do total previsto de casos infectados",
+  "forecastApproxEndDay": "A data prevista para atingir 97% do total previsto de casos infectados",
   "alreadyReached": "já alcançado",
   "links": "*Ligações",
   "linkJohnsHopkinsUniversity": "Dados da Universidade Johns Hopkins",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19: Estatísticas e previsões a nível mundial",
   "usTitle": "COVID-19: Estatísticas e previsões para os estados e cidades dos EUA",
   "ruTitle": "COVID-19: Estatísticas e previsões por regiões da Rússia",
-  "licensedUnder": "licenciado ao abrigo de"
+  "licensedUnder": "licenciado ao abrigo de",
+  "explainAccelaration": "A aceleração descreve uma alteração na taxa de aumento ou diminuição da taxa de crescimento das pessoas infectadas diariamente. Se a aceleração for positiva, a epidemia \"pressiona o pedal do acelerador\", negativa, \"a epidemia pressiona o travão\""
 }

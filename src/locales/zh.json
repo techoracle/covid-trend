@@ -19,7 +19,7 @@
   "feedback": "如有新的想法、评论、正面或负面的回应，请提供您的反馈。",
   "here": "这里",
   "forecastEndDay": "无新的每日受感染的预期日期",
-  "forecastApproxEndDay": "预期日期将达到预测的感染病例总数的99.99%",
+  "forecastApproxEndDay": "预期日期将达到预测的感染病例总数的97%",
   "alreadyReached": "已达",
   "links": "链接",
   "linkJohnsHopkinsUniversity": "约翰斯-霍普金斯大学的数据",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19：全球统计和预测",
   "usTitle": "COVID-19：美国各州和城市的统计和预测数据。",
   "ruTitle": "COVID-19：俄罗斯各地区的统计和预测",
-  "licensedUnder": "许可证的"
+  "licensedUnder": "许可证的",
+  "explainAccelaration": "加速度描述的是日感染者增减速度的变化。如果加速度为正值，说明疫情 \"踩油门\"，为负值，说明 \"疫情踩刹车\""
 }

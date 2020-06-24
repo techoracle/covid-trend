@@ -19,7 +19,7 @@
   "feedback": "新しい考え、検討、肯定的なまたは否定的な応答の場合にはあなたのフィードバックを提供して下さい",
   "here": "此処",
   "forecastEndDay": "新規デイリー感染なしの期待日",
-  "forecastApproxEndDay": "予測感染者数の99.99％に到達する予定日",
+  "forecastApproxEndDay": "予測感染者数の97％に到達する予定日",
   "alreadyReached": "既成",
   "links": "リンク",
   "linkJohnsHopkinsUniversity": "ジョンズ・ホプキンス大学のデータ",
@@ -33,5 +33,6 @@
   "globalTitle": "COVID-19: 世界の統計と予測",
   "usTitle": "COVID-19: 米国の州と都市の統計と予測",
   "ruTitle": "COVID-19：ロシアの地域別統計と予測",
-  "licensedUnder": "下にライセンス"
+  "licensedUnder": "下にライセンス",
+  "explainAccelaration": "加速は、毎日の感染者の増減率の変化を記述しています。加速が正の場合、流行は「アクセルを踏む」、負の場合、「流行はブレーキを踏む」"
 }
