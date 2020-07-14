@@ -41,6 +41,10 @@
 
     <div class="Chart">
       <h2>{{ $t('infectedAccelerator') }}</h2>
+
+        {{ $t('explainAccelaration') }}
+
+
       <two-lines-chart
         v-if="loaded"
         :chart-labels="labelsAccelerator"
@@ -50,6 +54,7 @@
         :data-label-second="$t('averageValue')"
       />
     </div>
+
 
     <div class="Chart">
       <h2>{{ $t('deathsTotal') }}</h2>
