@@ -33,6 +33,18 @@ function generateDailyUpToToday(startDate) {
   return result;
 }
 
-const jhuInitialLoadDailyFilenames = generateDailyUpToToday( moment(firstDaily) );
+function generateDailyFromToday(amount) {
+  const result = [];
+  const today = moment();
+  for (let i = 1; i <= amount; i++) {
+    const delta = i * (-1);
+    result.push(today.clone().add(delta, 'days').format(csseDateFormat) + '.csv');
+  }
+  //console.log('generated file names: ' + result);
+  return result;
+}
+
+//const jhuInitialLoadDailyFilenames = generateDailyUpToToday( moment(firstDaily) );
+const jhuInitialLoadDailyFilenames = generateDailyFromToday( 5 );
 
 module.exports = {jhuFilenames, jhuUrl, ruFilenames, ruUrl, jhuDailyUrl, jhuInitialLoadDailyFilenames};

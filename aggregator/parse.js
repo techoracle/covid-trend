@@ -8,6 +8,9 @@ const outputPathGlobal = "../static/datasource/global";
 const outputPathRu = "../static/datasource/ru";
 const outputPathUs = "../static/datasource/us";
 
+const dataPathDaily = path.join(__dirname, "../static/csv/daily");
+const outputPathDaily = "../static/datasource/daily";
+
 update(dataPath, outputPathGlobal,
     'time_series_covid19_confirmed_global.csv',
     'time_series_covid19_deaths_global.csv',

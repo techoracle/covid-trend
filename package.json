@@ -1,6 +1,6 @@
 {
   "name": "Covid-Trend",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "COVID-19 statistics and forecast (based on data of Johns Hopkins University and and Verhulst population growth model)",
   "author": "Sergey Zaburunov <sergey.zaburunov@gmail.com>",
   "private": true,
